@@ -1,0 +1,67 @@
+/* Mills Electric Inc — brand tokens v1.0
+   Source of truth: mills-electric-brand-book.html (section 08)
+   These are the only permitted color, type, spacing, and radius values. */
+
+:root {
+  /* Core */
+  --me-navy: #07224B;
+  --me-yellow: #FECA04;
+
+  /* Navy ramp */
+  --me-navy-900: #04162F;
+  --me-navy-800: #07224B;
+  --me-navy-700: #0E3A6B;
+  --me-navy-600: #1B4F8A;
+  --me-navy-400: #7FA8D9;
+  --me-navy-200: #C6D8EE;
+  --me-navy-50:  #E8EFF7;
+
+  /* Yellow ramp — 700 is the ONLY one safe as text on white */
+  --me-yellow-700: #8A6B00;
+  --me-yellow-600: #D9AB00;
+  --me-yellow-500: #FECA04;
+  --me-yellow-300: #FFD84D;
+  --me-yellow-100: #FFE9A3;
+  --me-yellow-50:  #FFF7DB;
+
+  /* Neutrals */
+  --me-ink:   #0B1220;
+  --me-slate: #5A6B85;
+  --me-line:  #D7DEE9;
+  --me-mist:  #F4F6FA;
+  --me-white: #FFFFFF;
+
+  /* Status — light surfaces / navy surfaces */
+  --me-success: #15803D;  --me-success-on-dark: #4ADE80;
+  --me-warning: #B54708;  --me-warning-on-dark: #FBBF24;
+  --me-danger:  #C0342B;  --me-danger-on-dark:  #F87171;
+  --me-info:    #0E7490;  --me-info-on-dark:    #38BDF8;
+
+  /* Type */
+  --me-font-display: 'Archivo Black', 'Arial Black', sans-serif;
+  --me-font-body:    'Inter', -apple-system, 'Segoe UI', sans-serif;
+  --me-font-mono:    'JetBrains Mono', 'SF Mono', Consolas, monospace;
+
+  /* Space (4px base) */
+  --me-space-1: 4px;   --me-space-2: 8px;   --me-space-3: 12px;
+  --me-space-4: 16px;  --me-space-6: 24px;  --me-space-8: 32px;
+  --me-space-12: 48px; --me-space-16: 64px; --me-space-24: 96px;
+
+  /* Radius — never exceed 10px on a rectangle */
+  --me-radius-sm: 4px;
+  --me-radius-md: 6px;
+  --me-radius-lg: 10px;
+  --me-radius-full: 9999px;
+
+  /* Elevation — navy-tinted */
+  --me-shadow-sm:    0 1px 2px rgba(7,34,75,.06);
+  --me-shadow-md:    0 4px 12px rgba(7,34,75,.10);
+  --me-shadow-lg:    0 12px 32px rgba(7,34,75,.14);
+  --me-shadow-focus: 0 0 0 3px rgba(254,202,4,.55);
+
+  /* Motion */
+  --me-ease: cubic-bezier(.2,0,0,1);
+  --me-dur-fast: 120ms;
+  --me-dur-base: 200ms;
+  --me-dur-slow: 320ms;
+}

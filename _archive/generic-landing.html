@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Tools Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1, h2, h3, .serif {
+            font-family: 'Crimson Text', serif;
+        }
+
+        :root {
+            --navy: #1a2850;
+            --gold: #d4a574;
+            --cream: #f5f3f0;
+            --text-dark: #1a2850;
+            --text-light: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--navy);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        .shadow-custom {
+            box-shadow:
+                0 10px 40px rgba(212, 165, 116, 0.08),
+                0 0 1px rgba(212, 165, 116, 0.1);
+        }
+
+        .shadow-custom-elevated {
+            box-shadow:
+                0 20px 60px rgba(212, 165, 116, 0.12),
+                0 0 1px rgba(212, 165, 116, 0.15);
+        }
+
+        .btn-base {
+            display: inline-block;
+            padding: 12px 28px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            border-radius: 6px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--text-dark);
+        }
+
+        .btn-primary:hover {
+            background: #e0b484;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(212, 165, 116, 0.25);
+        }
+
+        .btn-primary:focus-visible {
+            outline: 2px solid var(--cream);
+            outline-offset: 2px;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 1.5px solid rgba(212, 165, 116, 0.4);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            background: rgba(212, 165, 116, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary:focus-visible {
+            outline: 2px solid var(--cream);
+            outline-offset: 2px;
+        }
+
+        a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        a:hover {
+            color: #e0b484;
+        }
+
+        a:focus-visible {
+            outline: 2px solid var(--cream);
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+
+        .hero-text {
+            font-size: clamp(48px, 8vw, 80px);
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+        }
+
+        .subtext {
+            font-size: clamp(16px, 2vw, 20px);
+            font-weight: 400;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 520px;
+        }
+
+        .accent-bar {
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+            margin-bottom: 32px;
+            border-radius: 1.5px;
+        }
+
+        .section {
+            padding: 80px 20px;
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .feature-card {
+            padding: 32px;
+            border-radius: 8px;
+            background: rgba(212, 165, 116, 0.04);
+            border: 1px solid rgba(212, 165, 116, 0.1);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(212, 165, 116, 0.3);
+            box-shadow: 0 16px 48px rgba(212, 165, 116, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .feature-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.08) 0%, rgba(212, 165, 116, 0.02) 100%);
+            border-top: 1px solid rgba(212, 165, 116, 0.1);
+            border-bottom: 1px solid rgba(212, 165, 116, 0.1);
+        }
+
+        .cta-title {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: -0.01em;
+        }
+
+        .cta-subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        footer {
+            padding: 40px 20px;
+            border-top: 1px solid rgba(212, 165, 116, 0.1);
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .footer-link {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 20px;
+            }
+
+            .hero-text {
+                font-size: 42px;
+            }
+
+            .subtext {
+                font-size: 16px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="section" style="padding-top: 120px; padding-bottom: 100px;">
+        <div class="section-inner">
+            <div class="accent-bar"></div>
+            <h1 class="hero-text">Build the future,<br>beautifully.</h1>
+            <p class="subtext">A complete platform for modern teams to design, collaborate, and ship work that matters. Built for speed. Designed for craft.</p>
+            <div style="margin-top: 40px; display: flex; gap: 16px; flex-wrap: wrap;">
+                <button class="btn-base btn-primary">Get Started Free</button>
+                <button class="btn-base btn-secondary">Watch Demo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" style="border-top: 1px solid rgba(212, 165, 116, 0.1); border-bottom: 1px solid rgba(212, 165, 116, 0.1);">
+        <div class="section-inner">
+            <div>
+                <div class="accent-bar"></div>
+                <h2 class="hero-text" style="font-size: 48px; margin-bottom: 16px;">What you can do</h2>
+                <p class="subtext" style="max-width: 600px;">Everything you need to create, collaborate, and deliver work—without the complexity.</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">✏️</div>
+                    <h3 class="feature-title">Design Tools</h3>
+                    <p class="feature-desc">Powerful vector editing, prototyping, and component libraries. Everything built for speed and precision.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3 class="feature-title">Real-time Collab</h3>
+                    <p class="feature-desc">Seamless teamwork with live multiplayer, version history, and comments. Design together, anywhere.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Ship Faster</h3>
+                    <p class="feature-desc">Export to code, integrate with your workflow, and handoff to developers in minutes.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3 class="feature-title">Design System</h3>
+                    <p class="feature-desc">Build and maintain design systems that scale. Tokens, components, and documentation in one place.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 class="feature-title">Enterprise Security</h3>
+                    <p class="feature-desc">Bank-level encryption, SSO, audit logs, and compliance with SOC 2, GDPR, and more.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3 class="feature-title">API & Plugins</h3>
+                    <p class="feature-desc">Extend and customize. Open API, plugin ecosystem, and webhooks for your unique workflow.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="section-inner">
+            <h2 class="cta-title">Start creating today</h2>
+            <p class="cta-subtitle">Join thousands of teams shipping better work. Free plan includes everything to get started.</p>
+            <button class="btn-base btn-primary">Start Your Free Trial</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 32px;">
+            <div>
+                <div style="font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 16px;">Product</div>
+                <a class="footer-link" href="#">Features</a>
+                <a class="footer-link" href="#">Pricing</a>
+                <a class="footer-link" href="#">Security</a>
+                <a class="footer-link" href="#">Changelog</a>
+            </div>
+            <div>
+                <div style="font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 16px;">Company</div>
+                <a class="footer-link" href="#">About</a>
+                <a class="footer-link" href="#">Blog</a>
+                <a class="footer-link" href="#">Careers</a>
+                <a class="footer-link" href="#">Contact</a>
+            </div>
+            <div>
+                <div style="font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 16px;">Resources</div>
+                <a class="footer-link" href="#">Docs</a>
+                <a class="footer-link" href="#">API</a>
+                <a class="footer-link" href="#">Help Center</a>
+                <a class="footer-link" href="#">Status</a>
+            </div>
+            <div>
+                <div style="font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 16px;">Legal</div>
+                <a class="footer-link" href="#">Privacy</a>
+                <a class="footer-link" href="#">Terms</a>
+                <a class="footer-link" href="#">Cookie Policy</a>
+            </div>
+        </div>
+        <div style="margin-top: 40px; padding-top: 40px; border-top: 1px solid rgba(212, 165, 116, 0.1); text-align: center;">
+            © 2026 Creative Platform. All rights reserved.
+        </div>
+    </footer>
+
+</body>
+</html>
