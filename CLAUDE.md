@@ -20,7 +20,13 @@
 ## Key Assets
 - **Hero image**: assets/crew-panel.jpg (electrician at panel)
 - **Service area map**: assets/mills-electric-map.png (Brockton location)
-- **Logos**: assets/logos/ (reversed-logo-on-navy.png for dark backgrounds)
+- **Brand logos (v2.0, current)**: brand_assets/logos/ — `me-primary`, `me-primary-reversed`,
+  `me-horizontal`, `me-horizontal-reversed`, `me-mark`, `me-mark-reversed`,
+  `me-badge-circle`, `me-badge-hex`, `me-mono-{navy,white,yellow,red}`
+  - Original artwork: brand_assets/logos/_source/
+  - Superseded v1 files: brand_assets/logos/_v1/
+- **Site logos**: assets/logos/ — **still v1 artwork** (no red bolt). The website has not yet
+  been migrated to the v2.0 logos or the Signal Red palette.
 
 ## Current Reviews (Real Customer Testimonials)
 1. **Jose Oliveira** (2024, 5★)
@@ -44,10 +50,22 @@
 - **404.html** — Error page
 
 ## Design System
+Source of truth: `brand_assets/mills-electric-brand-book.html` (v2.0). Tokens mirrored in
+`brand_assets/tokens.css`. If anything disagrees, the brand book wins.
+
 - **Primary color**: Navy (#07224B)
-- **Accent color**: Volt/Yellow (#FFCB1F)
+- **Accent color**: Volt/Yellow (#FECA04)
+- **Trim color**: Signal Red (#E4151B) — added in brand book v2.0
+- **Color mix**: roughly 65% navy/neutrals, 25% white, 8% yellow, 2% red
 - **Font**: Inter (body), Archivo Black (headings)
 - **CSS**: assets/site.css
+
+### Signal Red rules
+- Red is **trim, not a theme**: hairlines, a sheared edge, the emergency badge, the lockup itself.
+- At most **one** red button per site — the 24/7 emergency CTA — with a **white** label.
+- Never `#E4151B` on navy (3.30:1); use `#FF6B6F` on navy surfaces.
+- Never red directly against yellow (3.09:1); put navy or white between them.
+- Status `danger` is `#A4161A`, deliberately deeper than brand red.
 
 ## Deployment
 - Run `./make-deploy.sh` to build the `deploy/` folder

@@ -1,11 +1,13 @@
-/* Mills Electric Inc — brand tokens v1.0
+/* Mills Electric Inc — brand tokens v2.0
    Source of truth: mills-electric-brand-book.html (section 08)
-   These are the only permitted color, type, spacing, and radius values. */
+   These are the only permitted color, type, spacing, and radius values.
+   v2.0 — Signal Red added to the core palette, sampled from the 2.0 logo artwork. */
 
 :root {
   /* Core */
-  --me-navy: #07224B;
+  --me-navy:   #07224B;
   --me-yellow: #FECA04;
+  --me-red:    #E4151B;
 
   /* Navy ramp */
   --me-navy-900: #04162F;
@@ -24,6 +26,16 @@
   --me-yellow-100: #FFE9A3;
   --me-yellow-50:  #FFF7DB;
 
+  /* Red ramp — 500 is the logo red and is AA both ways against white.
+     Never put 500 on navy (3.30:1) — use 300 on navy surfaces. */
+  --me-red-800: #7A0A0E;
+  --me-red-700: #A4161A;
+  --me-red-600: #C11119;
+  --me-red-500: #E4151B;
+  --me-red-300: #FF6B6F;
+  --me-red-100: #FFD9DA;
+  --me-red-50:  #FFF1F1;
+
   /* Neutrals */
   --me-ink:   #0B1220;
   --me-slate: #5A6B85;
@@ -31,10 +43,12 @@
   --me-mist:  #F4F6FA;
   --me-white: #FFFFFF;
 
-  /* Status — light surfaces / navy surfaces */
+  /* Status — light surfaces / navy surfaces.
+     danger is red-700, deliberately deeper than brand red-500.
+     Status colour NEVER travels alone: always pair with an icon and a label. */
   --me-success: #15803D;  --me-success-on-dark: #4ADE80;
   --me-warning: #B54708;  --me-warning-on-dark: #FBBF24;
-  --me-danger:  #C0342B;  --me-danger-on-dark:  #F87171;
+  --me-danger:  #A4161A;  --me-danger-on-dark:  #FF6B6F;
   --me-info:    #0E7490;  --me-info-on-dark:    #38BDF8;
 
   /* Type */
@@ -58,6 +72,9 @@
   --me-shadow-md:    0 4px 12px rgba(7,34,75,.10);
   --me-shadow-lg:    0 12px 32px rgba(7,34,75,.14);
   --me-shadow-focus: 0 0 0 3px rgba(254,202,4,.55);
+
+  /* Trim — the red hairline that runs under headings and beside the wordmark */
+  --me-trim-red: 2px solid #E4151B;
 
   /* Motion */
   --me-ease: cubic-bezier(.2,0,0,1);
