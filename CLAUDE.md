@@ -25,8 +25,12 @@
   `me-badge-circle`, `me-badge-hex`, `me-mono-{navy,white,yellow,red}`
   - Original artwork: brand_assets/logos/_source/
   - Superseded v1 files: brand_assets/logos/_v1/
-- **Site logos**: assets/logos/ — **still v1 artwork** (no red bolt). The website has not yet
-  been migrated to the v2.0 logos or the Signal Red palette.
+- **Site logos**: assets/logos/ — migrated to v2.0 in commit fcf9310. Currently in use:
+  - `reversed-logo-on-navy.png` — v2.0, red bolt, **1.96:1**. Masthead + footer, all 6 pages.
+  - `favicon-32/180/192.png` — v2.0 mark on navy, linked from every page `<head>`.
+  - Unused leftovers, not referenced by any page: `primary-logo-on-white.png` and
+    `me-mark-alone.png` are still v1 artwork (no red bolt), and `favicon-512.png` has no
+    manifest pointing at it. Re-export from brand_assets/logos/ if you ever need these.
 
 ## Current Reviews (Real Customer Testimonials)
 1. **Jose Oliveira** (2024, 5★)
@@ -58,7 +62,13 @@ Source of truth: `brand_assets/mills-electric-brand-book.html` (v2.0). Tokens mi
 - **Trim color**: Signal Red (#E4151B) — added in brand book v2.0
 - **Color mix**: roughly 65% navy/neutrals, 25% white, 8% yellow, 2% red
 - **Font**: Inter (body), Archivo Black (headings)
-- **CSS**: assets/site.css
+- **CSS**: assets/site.css — **JS**: assets/site.js (masthead scroll state only)
+
+### Logo sizing gotcha
+The v2.0 lockup is **1.96:1**; v1 was 1.56:1. Every logo `<img>` carries hardcoded
+`width`/`height` (currently 165&times;84). Changing the artwork without updating those
+attributes squashes the logo — this has bitten once already. 165px also clears the brand
+book's 160px digital minimum, so don't shrink it below that.
 
 ### Signal Red rules
 - Red is **trim, not a theme**: hairlines, a sheared edge, the emergency badge, the lockup itself.
@@ -66,6 +76,9 @@ Source of truth: `brand_assets/mills-electric-brand-book.html` (v2.0). Tokens mi
 - Never `#E4151B` on navy (3.30:1); use `#FF6B6F` on navy surfaces.
 - Never red directly against yellow (3.09:1); put navy or white between them.
 - Status `danger` is `#A4161A`, deliberately deeper than brand red.
+- The masthead's 3px red rule is **transparent over navy** and fades in only once the hero
+  clears the header (`.masthead.past-navy`, toggled by assets/site.js). This is deliberate —
+  red on navy fails contrast, and it keeps red inside its 2% budget.
 
 ## Deployment
 - Run `./make-deploy.sh` to build the `deploy/` folder
@@ -81,7 +94,8 @@ When making changes:
 5. Commit and push with clear message: `git commit -m "Update [what changed]"`
 
 ## Notes
-- GitHub PAT was used for initial push — consider revoking after first push for security
+- GitHub PAT is stored in the macOS keychain (`credential.helper = osxkeychain`), not in the
+  repo — the remote URL is clean. Rotate it when convenient.
 - Contact.html had a revert issue; always verify it after IDE edits
 - Review text for Jose Oliveira is truncated at source (Google screenshot)
 - María and James reviews are rating-only from the Google source
