@@ -1,54 +1,70 @@
-/* Mills Electric Inc — brand tokens v2.0
+/* Mills Electric Inc — brand tokens v3.1
    Source of truth: mills-electric-brand-book.html (section 08)
    These are the only permitted color, type, spacing, and radius values.
-   v2.0 — Signal Red added to the core palette, sampled from the 2.0 logo artwork. */
+   v3.0 — Navy replaced by Graphite Black; Volt Yellow replaced by Brushed Gold.
+          Gold retuned to #DFAD37, sampled from the delivered 3.0 logo artwork
+          (median of the brushed E-bars). The whole gold ramp is rebuilt on that hue.
+   v3.1 — Signal Red flattened. Through 3.0 the bolt carried a gradient
+          (~#8B0000 to #FE493A); the 3.1 artwork uses one flat value, measured
+          at #E90206. The whole red ramp is rebuilt on that hue. Shapes,
+          placement and the 2% budget are unchanged.
+
+          Token names changed with the colors:
+          --me-navy-*  ->  --me-black-*      --me-yellow-*  ->  --me-gold-*
+          The old names are NOT aliased, so stale references fail loudly
+          instead of quietly rendering the 2.0 brand. */
 
 :root {
   /* Core */
-  --me-navy:   #07224B;
-  --me-yellow: #FECA04;
-  --me-red:    #E4151B;
+  --me-black: #0B0B0C;
+  --me-gold:  #DFAD37;
+  --me-red:   #E90206;
 
-  /* Navy ramp */
-  --me-navy-900: #04162F;
-  --me-navy-800: #07224B;
-  --me-navy-700: #0E3A6B;
-  --me-navy-600: #1B4F8A;
-  --me-navy-400: #7FA8D9;
-  --me-navy-200: #C6D8EE;
-  --me-navy-50:  #E8EFF7;
+  /* Black ramp — neutral, never warm-grey.
+     A warm-grey ramp beside Brushed Gold reads as dirty gold, not as grey. */
+  --me-black-900: #000000;
+  --me-black-800: #0B0B0C;
+  --me-black-700: #1A1A1D;
+  --me-black-600: #2B2B30;
+  --me-black-400: #8E8E97;
+  --me-black-200: #C9C9CF;
+  --me-black-50:  #EFEFF1;
 
-  /* Yellow ramp — 700 is the ONLY one safe as text on white */
-  --me-yellow-700: #8A6B00;
-  --me-yellow-600: #D9AB00;
-  --me-yellow-500: #FECA04;
-  --me-yellow-300: #FFD84D;
-  --me-yellow-100: #FFE9A3;
-  --me-yellow-50:  #FFF7DB;
+  /* Gold ramp — 700 is the ONLY one safe as text on white (7.30:1).
+     On screen gold is always FLAT. The brushed sheen is print/vinyl only. */
+  --me-gold-700: #6E5212;
+  --me-gold-600: #B98A1E;
+  --me-gold-500: #DFAD37;
+  --me-gold-300: #EAC97B;
+  --me-gold-100: #EEDEB9;
+  --me-gold-50:  #F8F3E8;
 
-  /* Red ramp — 500 is the logo red and is AA both ways against white.
-     Never put 500 on navy (3.30:1) — use 300 on navy surfaces. */
-  --me-red-800: #7A0A0E;
-  --me-red-700: #A4161A;
-  --me-red-600: #C11119;
-  --me-red-500: #E4151B;
-  --me-red-300: #FF6B6F;
-  --me-red-100: #FFD9DA;
-  --me-red-50:  #FFF1F1;
+  /* Red ramp — 500 is the logo red, FLAT since 3.1, AA both ways on white
+     (4.69:1). Never 500 as type on black (4.19:1) — use 300 on black surfaces.
+     Never red on gold at all (2.27:1) — black or white must separate them.
+     The lockup's red is a single value: never apply a gradient to it. */
+  --me-red-800: #7E0103;
+  --me-red-700: #B60205;
+  --me-red-600: #C50205;
+  --me-red-500: #E90206;
+  --me-red-300: #FE6C6F;
+  --me-red-100: #FDBABB;
+  --me-red-50:  #FEE9EA;
 
   /* Neutrals */
-  --me-ink:   #0B1220;
-  --me-slate: #5A6B85;
-  --me-line:  #D7DEE9;
-  --me-mist:  #F4F6FA;
+  --me-ink:   #111113;
+  --me-slate: #6B6B73;
+  --me-line:  #DCDCE0;
+  --me-mist:  #F6F6F7;
   --me-white: #FFFFFF;
 
-  /* Status — light surfaces / navy surfaces.
+  /* Status — light surfaces / black surfaces.
      danger is red-700, deliberately deeper than brand red-500.
+     warning stays burnt orange — never gold, or it stops reading as a status.
      Status colour NEVER travels alone: always pair with an icon and a label. */
   --me-success: #15803D;  --me-success-on-dark: #4ADE80;
   --me-warning: #B54708;  --me-warning-on-dark: #FBBF24;
-  --me-danger:  #A4161A;  --me-danger-on-dark:  #FF6B6F;
+  --me-danger:  #B60205;  --me-danger-on-dark:  #FE6C6F;
   --me-info:    #0E7490;  --me-info-on-dark:    #38BDF8;
 
   /* Type */
@@ -67,14 +83,25 @@
   --me-radius-lg: 10px;
   --me-radius-full: 9999px;
 
-  /* Elevation — navy-tinted */
-  --me-shadow-sm:    0 1px 2px rgba(7,34,75,.06);
-  --me-shadow-md:    0 4px 12px rgba(7,34,75,.10);
-  --me-shadow-lg:    0 12px 32px rgba(7,34,75,.14);
-  --me-shadow-focus: 0 0 0 3px rgba(254,202,4,.55);
+  /* Elevation — black-tinted, never blue-grey. One opacity step denser than
+     the 2.0 navy shadows: black casts harder than navy did at the same alpha. */
+  --me-shadow-sm: 0 1px 2px rgba(11,11,12,.08);
+  --me-shadow-md: 0 4px 12px rgba(11,11,12,.12);
+  --me-shadow-lg: 0 12px 32px rgba(11,11,12,.16);
+
+  /* Focus — gold-600 on light, gold-300 on dark. Core gold is only 2.06:1
+     on white, which fails the 3:1 bar for a non-text indicator. 600 clears it at 3.13:1. */
+  --me-shadow-focus:         0 0 0 3px rgba(185,138,30,.65);
+  --me-shadow-focus-on-dark: 0 0 0 3px rgba(234,201,123,.70);
 
   /* Trim — the red hairline that runs under headings and beside the wordmark */
-  --me-trim-red: 2px solid #E4151B;
+  --me-trim-red: 2px solid #E90206;
+
+  /* Brushed sheen — PRINT, VINYL AND SIGNAGE ONLY. Never in a browser.
+     Axis runs along the long edge of the letterform, never diagonally
+     across a lockup. Print equivalent: PMS 872 C metallic or matte gold foil. */
+  --me-gold-brushed: repeating-linear-gradient(100deg,rgba(255,255,255,.10) 0 1px,rgba(0,0,0,.07) 1px 3px),
+                     linear-gradient(100deg,#A37216 0%,#C29128 22%,#DFAD37 44%,#F6CB4A 62%,#FEE770 78%,#C29128 100%);
 
   /* Motion */
   --me-ease: cubic-bezier(.2,0,0,1);
