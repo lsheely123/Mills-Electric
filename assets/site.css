@@ -220,6 +220,12 @@ ul{margin:0; padding:0; list-style:none}
 .stat-n{font-family:'Archivo Black',Arial Black,sans-serif; font-size:2.441rem; line-height:1.12;
   letter-spacing:-.015em; color:var(--black)}
 .dark .stat-n{color:var(--white)}
+/* a word rather than a figure — steps down so it fits the same column the
+   numbers sit in, and stays under them in weight so the row still reads as data.
+   line-height is pinned to .stat-n's box (2.441rem x 1.12) so the caption under a
+   word lines up with the caption under a figure across the grid row. */
+.stat-word{font-size:clamp(1.563rem,3.2vw,1.953rem); letter-spacing:-.01em;
+  line-height:2.734rem}
 
 /* ---------- tables ---------- */
 .tbl{width:100%; border-collapse:collapse}

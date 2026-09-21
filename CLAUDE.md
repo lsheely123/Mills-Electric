@@ -6,6 +6,26 @@
 - **Email**: Millselectricinc@gmail.com
 - **Address**: 155 Main St, Brockton, MA 02301
 - **Hours**: Mon–Fri 7am–5pm, Sat 7am–12pm, 24/7 emergencies
+- **Founded**: 1979
+
+## Company Stats (the "by the numbers" block)
+These four appear **twice** — `index.html` ("Why Mills") and `about.html` ("By the
+numbers"). They must stay identical; changing one and not the other puts two
+contradictory claims on the same site.
+| Figure | Label |
+|---|---|
+| 47 | Years of Mills Electric |
+| 56 | Years in the industry |
+| 3hr | Median response on emergency calls |
+| *Warranty* (word, not a figure) | on select jobs |
+
+- The warranty cell uses `.stat-n.stat-word` — a word rather than a number, so it steps
+  down in size and pins its line-height to `.stat-n`'s box to keep captions aligned.
+- **47 years is load-bearing.** It sets the 1979 founding date, which also appears in
+  about.html's body copy, its `<h2>` ("Forty-seven years on the South Shore") and its
+  meta description. Bump the 47 and all four have to move together.
+- Retired in Sep 2026: "18 / Years in business", "2,400+ / Permits pulled and closed
+  out", "4hr / Median emergency response", "3yr / Workmanship warranty".
 
 ## Online Presence
 - **GitHub**: https://github.com/lsheely123/Mills-Electric
