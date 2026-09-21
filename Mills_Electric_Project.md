@@ -6,7 +6,7 @@
 - **Name**: Mills Electric Inc
 - **Type**: Electrical Contractor
 - **Location**: 155 Main St, Brockton, MA 02301
-- **License**: MA Master Electrician #A-00000
+- **License**: MA Master Electrician #A-12245
 
 ### Contact Information
 - **Phone**: (508)-586-2955

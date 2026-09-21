@@ -30,7 +30,7 @@ contradictory claims on the same site.
 ## Online Presence
 - **GitHub**: https://github.com/lsheely123/Mills-Electric
 - **Google Maps**: https://maps.app.goo.gl/pc68XnQNeTdRhR8U7
-- **License**: MA Master Electrician #A-00000
+- **License**: MA Master Electrician #A-12245
 
 ## Current Google Ratings
 - **Average**: 5.0 stars
