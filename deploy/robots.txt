@@ -1,0 +1,25 @@
+# Mills Electric Inc — robots.txt
+#
+# LAUNCH PLACEHOLDER: the Sitemap line below uses the host
+#   https://REPLACE-DOMAIN
+# Find-replace that exact literal string across the repo at launch. The same
+# literal appears in sitemap.xml and in the canonical/OG tags of all 14 pages.
+#
+# The Sitemap directive must be an absolute URL — a relative path is ignored by
+# every crawler — so this file cannot go live until the domain is substituted.
+
+User-agent: *
+Allow: /
+
+# Nothing here is private. The site is six core pages plus eight town pages,
+# all of which we want indexed. 404.html is not disallowed — it is excluded
+# from sitemap.xml and carries a noindex meta tag instead, which is the correct
+# way to keep it out of the index. (Disallowing it would stop crawlers reading
+# that noindex tag at all.)
+#
+# Not disallowed but worth knowing: brand_assets/, tools/, _archive/,
+# growth/ and "temporary screenshots/" are never published. make-deploy.sh
+# copies an explicit file list into deploy/, so they cannot leak into the
+# build and do not need a rule here.
+
+Sitemap: https://REPLACE-DOMAIN/sitemap.xml

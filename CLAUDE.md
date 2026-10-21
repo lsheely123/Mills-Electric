@@ -4,7 +4,11 @@
 - **Company**: Mills Electric Inc
 - **Phone**: (508)-586-2955
 - **Email**: Millselectricinc@gmail.com
-- **Address**: 155 Main St, Brockton, MA 02301
+- **Address**: 155 Main St, Brockton, MA 02301 — **DISPUTED, do not treat as settled.**
+  BBB, D&B, BuildZoom, Manta, Yahoo *and the Google Business Profile pin linked below*
+  all publish **233 Copeland St**. The JSON-LD ships an `ADDRESS_UNCONFIRMED` placeholder
+  rather than guess. Full evidence and resolution steps: `growth/NAP-CONFLICT.md`.
+  Confirm with the owner before launch.
 - **Hours**: Mon–Fri 7am–5pm, Sat 7am–12pm, 24/7 emergencies
 - **Founded**: 1979
 
@@ -104,6 +108,23 @@ yard sign, or embroidery digitizing. To regenerate: brand_assets/logos/_source/b
 - **contact.html** — Contact form, hours, map, estimate request
 - **404.html** — Error page
 
+### Town service-area pages (added Oct 2026) — 8 more, 14 total
+`electrician-<town>-ma.html` for Abington, Whitman, Easton, Stoughton, Randolph,
+Holbrook, Avon, Bridgewater. Targets "Electrician <Town> MA".
+
+- **Generated, not hand-edited**: `tools/make-town-pages.py` owns the masthead, band
+  CTA and footer so they cannot drift from the six core pages. Per-town prose lives in
+  the `TOWNS` dict in that file. **Edit the generator and re-run it**, not the HTML.
+- Each one is deliberately *not* a doorway clone — the housing-stock and
+  electrical-reality copy is specific to that town (knob-and-tube in Abington's pre-war
+  stock, aluminum branch wiring in Stoughton's 1965–73 tracts, generators in Easton,
+  multi-family conversions in Randolph, and so on).
+- The only numbers on them are the published 3hr median, that town's own row from
+  index.html's service-area table, and the licence number. **No invented job counts,
+  testimonials or response times** — keep it that way.
+- They are linked from index.html's service-area table and about.html's chip row.
+  Those links are what keeps them out of orphan status; don't remove them.
+
 ## Design System
 Source of truth: `brand_assets/mills-electric-brand-book.html` (**v3.1**). Tokens mirrored in
 `brand_assets/tokens.css`. If anything disagrees, the brand book wins.
@@ -140,7 +161,7 @@ anywhere in the site any more:
 - `--volt*` → `--gold*` (`--gold`, `-700`, `-600`, `-300`, `-100`, `-50`)
 - classes: `.btn-onnavy` → `.btn-ondark`, `.on-navy-muted` → `.on-dark-muted`,
   `.past-navy` → `.past-dark` (the last one is also in `assets/site.js` — keep them in sync)
-- **Pages carry inline `var(--...)` refs too.** Roughly 80 of them across the 6 files
+- **Pages carry inline `var(--...)` refs too.** ~330 of them across the 14 files
   (`style="color:var(--black)"` and similar). A rename that only touches site.css will
   silently break those — they fall back to inherited colour, not an error.
 - Two focus rings now: `--focus` (gold-600, for light surfaces) and `--focus-dark`
@@ -148,8 +169,8 @@ anywhere in the site any more:
   only 2.06:1 on white and fails as a lone non-text indicator.
 
 ### Logo sizing gotcha
-Every logo `<img>` carries hardcoded `width`/`height` — **currently 165&times;95** (12 tags,
-2 per page). Changing the artwork without updating those attributes squashes the logo; this
+Every logo `<img>` carries hardcoded `width`/`height` — **currently 165&times;95** (28 tags,
+2 per page across all 14). Changing the artwork without updating those attributes squashes the logo; this
 has bitten once already. 165px also clears the brand book's 160px digital minimum, so don't
 shrink it below that.
 
@@ -184,15 +205,63 @@ badge-circle **1.07:1** (nearly square), badge-hex **1.42:1**.
 - **Gold never carries a safety message.** Volt Yellow was a warning color; Brushed Gold is
   not. Hazard/emergency signalling uses Signal Red or high-vis equipment outside the palette.
 
+## SEO (added Oct 2026)
+Before this pass the site had no JSON-LD, no sitemap, no robots.txt, no canonicals and
+no Open Graph on any page. All six were added, plus the eight town pages.
+
+### 🚨 `https://REPLACE-DOMAIN` — the one thing blocking launch
+Every absolute URL on the site is the literal placeholder `https://REPLACE-DOMAIN`.
+**One case-sensitive find-replace across the repo sets all of them**, then rebuild:
+
+```sh
+grep -rl 'REPLACE-DOMAIN' --include='*.html' --include='*.xml' --include='*.txt' . \
+  | xargs sed -i '' 's|https://REPLACE-DOMAIN|https://therealdomain.com|g'
+./make-deploy.sh
+```
+
+It appears in: all 14 pages (canonical, `og:url`, `og:image`, `twitter:image`, every
+JSON-LD `@id`/`url`), `sitemap.xml` (13 `<loc>`), `robots.txt` (the `Sitemap:` line),
+and both generator scripts in `tools/`. **robots.txt and sitemap.xml are inert until
+this is done** — a relative `Sitemap:` directive is ignored by every crawler.
+
+### The other two placeholders — `ADDRESS_UNCONFIRMED` / `GEO_UNCONFIRMED`
+In index.html's `Electrician` block only. These are *not* find-replaceable; they need a
+human answer first. See `growth/NAP-CONFLICT.md`. **Do not publish the schema with these
+still in it** — a LocalBusiness with a junk address is worse than one with no address.
+
+### What is where
+- `index.html` — `Electrician` (the one business entity, `@id` `/#electrician`) + `FAQPage`
+- `services.html` — `BreadcrumbList` + 6 × `Service`, each `provider`-linked to the above
+- town pages — `Electrician` scoped to that town + `BreadcrumbList`
+- about / reviews / contact / 404 — `BreadcrumbList`
+
+Deliberate omissions, don't "fix" these without reading why:
+- **FAQPage is on index.html only.** The same six Q&As are printed on services.html and
+  contact.html too; duplicating the markup across three URLs is a known Google problem.
+- **No `Review` markup on reviews.html.** Google disallows self-serving review markup on
+  LocalBusiness. The rating lives once, as `aggregateRating` on the Electrician node.
+- **404.html is noindex and excluded from sitemap.xml** (13 URLs, not 14). It is *not*
+  disallowed in robots.txt — blocking it would stop crawlers reading the noindex tag.
+
+### URL form
+Canonicals and sitemap use `.html`, matching the real filenames and every internal link,
+so they resolve on any host. Cloudflare Pages *also* serves the extensionless form and
+308-redirects `/foo.html` → `/foo`. If you want extensionless to be canonical, change it
+in `sitemap.xml` **and** every page's canonical/`og:url` together — never one alone.
+
 ## Deployment
 - Run `./make-deploy.sh` to build the `deploy/` folder
 - Deploy folder ready for Cloudflare Pages
-- Excludes: brand_assets/, tools/, _archive/, screenshots/
+- Excludes: brand_assets/, tools/, _archive/, growth/, screenshots/
+- Ships **14 HTML pages + sitemap.xml + robots.txt + assets/**. The script warns if the
+  page count is not 14, refuses to build if designer source art is found under `assets/`,
+  and strips `.DS_Store` (which `cp -R` was previously publishing).
 
 ## For Revisions & Updates
 When making changes:
 1. Update contact info here first
-2. Keep phone, email, and hours consistent across all 6 HTML pages
+2. Keep phone, email, and hours consistent across all 14 HTML pages
+   (town pages: edit `tools/make-town-pages.py` and re-run, don't edit the HTML)
 3. Update Google ratings in index.html and reviews.html snapshots
 4. Rebuild deploy/ folder before pushing: `./make-deploy.sh`
 5. Commit and push with clear message: `git commit -m "Update [what changed]"`

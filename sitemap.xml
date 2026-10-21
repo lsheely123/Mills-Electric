@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Mills Electric Inc — sitemap
+
+  LAUNCH PLACEHOLDER: every <loc> below uses the host  https://REPLACE-DOMAIN
+  Find-replace that exact literal string once and the whole file is correct.
+  The same literal is used in the canonical/OG tags of all 14 pages and in
+  robots.txt, so one repo-wide find-replace sets everything at launch.
+
+  13 URLs, not 14: 404.html is deliberately excluded. It carries
+  <meta name="robots" content="noindex, follow"> and a noindex page does not
+  belong in a sitemap.
+
+  Note on URL form: these use the .html extension because that is what the
+  files are actually named and what every internal link points at, so they
+  resolve on any static host. Cloudflare Pages additionally serves the
+  extensionless form and 308-redirects /foo.html -> /foo. If you confirm the
+  site is on Cloudflare Pages and want the extensionless URLs to be canonical,
+  strip ".html" here AND in every page's <link rel="canonical"> / og:url —
+  they must agree with each other. Do not change one without the other.
+
+  lastmod is the date this SEO pass landed. Update it when a page's content
+  actually changes; do not auto-bump it on every deploy, which teaches Google
+  to ignore it.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- core pages -->
+  <url>
+    <loc>https://REPLACE-DOMAIN/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://REPLACE-DOMAIN/services.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://REPLACE-DOMAIN/contact.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://REPLACE-DOMAIN/about.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://REPLACE-DOMAIN/reviews.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- town service-area pages -->
+  <url>
+    <loc>https://REPLACE-DOMAIN/electrician-abington-ma.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://REPLACE-DOMAIN/electrician-whitman-ma.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://REPLACE-DOMAIN/electrician-easton-ma.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://REPLACE-DOMAIN/electrician-stoughton-ma.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://REPLACE-DOMAIN/electrician-randolph-ma.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://REPLACE-DOMAIN/electrician-holbrook-ma.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://REPLACE-DOMAIN/electrician-avon-ma.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://REPLACE-DOMAIN/electrician-bridgewater-ma.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>
