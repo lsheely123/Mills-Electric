@@ -492,7 +492,7 @@ def jsonld(t):
   "parentOrganization": {{ "@id": "{BIZ_ID}" }},
   "telephone": "+15085862955",
   "email": "Millselectricinc@gmail.com",
-  "image": "{DOMAIN}/assets/crew-panel.jpg",
+  "image": "{DOMAIN}/assets/mills-van.jpg",
   "logo": "{DOMAIN}/assets/logos/reversed-logo-on-black.png",
   "description": {jstr(t['desc'])},
   "foundingDate": "1979",
@@ -589,14 +589,14 @@ def build(t, others):
 <meta property="og:title" content="{esc(t['title'])}">
 <meta property="og:description" content="{esc(t['desc'])}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{DOMAIN}/assets/crew-panel.jpg">
+<meta property="og:image" content="{DOMAIN}/assets/mills-van.jpg">
 <meta property="og:image:width" content="1280">
 <meta property="og:image:height" content="852">
 <meta property="og:image:alt" content="A Mills Electric crew member working inside an open service panel">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{esc(t['title'])}">
 <meta name="twitter:description" content="{esc(t['desc'])}">
-<meta name="twitter:image" content="{DOMAIN}/assets/crew-panel.jpg">
+<meta name="twitter:image" content="{DOMAIN}/assets/mills-van.jpg">
 <meta name="twitter:image:alt" content="A Mills Electric crew member working inside an open service panel">
 {jsonld(t)}
 </head>

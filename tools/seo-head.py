@@ -18,7 +18,7 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DOMAIN = "https://REPLACE-DOMAIN"
 
-OG_IMG = f"{DOMAIN}/assets/crew-panel.jpg"
+OG_IMG = f"{DOMAIN}/assets/mills-van.jpg"
 OG_IMG_W, OG_IMG_H = "1280", "852"
 OG_IMG_ALT = "A Mills Electric crew member working inside an open service panel"
 

@@ -13,6 +13,17 @@ by a human, not guessed at by me.
 
 ---
 
+## Note — 2026-10-31: the business card is NOT evidence
+
+Charlie's old business card (shared in chat, not saved to the repo) reads
+233 Copeland Street. Logan reports the card is likely years out of date and was supplied
+for its look only. An old card agreeing with old directory listings proves nothing about
+today: it is equally consistent with the business having moved *from* Copeland *to*
+155 Main St. The conflict stays open. Ask Charlie directly.
+
+The van lettering reads "Masters LIC. #11245A" vs 12245 everywhere else. Worth asking
+about, but the card does not settle it either.
+
 ## What agrees
 
 These match everywhere and are safe to ship:

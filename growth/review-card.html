@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mills Electric — review leave-behind card (PRINT ONLY, DO NOT PUBLISH)</title>
+<!--
+  ============================================================================
+  INTERNAL PRINT ASSET — NOT PART OF THE WEBSITE.
+
+  This file lives in growth/ on purpose. make-deploy.sh copies all of assets/,
+  so anything dropped there gets published. DO NOT MOVE THIS INTO assets/.
+
+  Mills Electric Inc — v3.1 brand tokens (brand_assets/tokens.css)
+  Created 2026-10-21. Draft for Logan.
+
+  BEFORE PRINTING — three things:
+    1. Replace REVIEW_LINK_PLACEHOLDER below with the short g.page link.
+       (Owner generates it — see growth/REVIEW-ASK-KIT.md section (a).)
+    2. Drop the QR PNG into the box (instructions inline, below).
+    3. Scan the PRINTED card with a real phone, two feet away, in poor light.
+
+  Prints 2 cards per US Letter sheet. Cut along the dashed line.
+  Print at 100% scale, background graphics ON, margins "None"/"Default".
+  ============================================================================
+-->
+<style>
+  /* ---- v3.1 tokens, mirrored from brand_assets/tokens.css ---- */
+  :root{
+    --me-black:#0B0B0C;  --me-black-700:#1A1A1D; --me-black-600:#2B2B30;
+    --me-black-400:#8E8E97; --me-black-200:#C9C9CF; --me-black-50:#EFEFF1;
+    --me-gold:#DFAD37;   --me-gold-700:#6E5212;  --me-gold-300:#EAC97B;
+    --me-red:#E90206;
+    --me-ink:#111113;    --me-slate:#6B6B73;     --me-line:#DCDCE0;
+    --me-white:#FFFFFF;
+    --me-font-display:'Archivo Black','Arial Black',sans-serif;
+    --me-font-body:'Inter',-apple-system,'Segoe UI',sans-serif;
+  }
+
+  /* ---- page setup ---- */
+  @page{ size: letter; margin: 0.4in; }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    font-family:var(--me-font-body);
+    color:var(--me-ink);
+    background:var(--me-black-50);
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+  /* ---- screen-only helper banner ---- */
+  .screen-note{
+    max-width:7.2in; margin:24px auto 8px; padding:14px 18px;
+    background:var(--me-black); color:var(--me-white);
+    border-left:4px solid var(--me-gold);
+    font-size:13px; line-height:1.55; border-radius:3px;
+  }
+  .screen-note strong{ color:var(--me-gold-300); }
+  .screen-note code{
+    font-family:ui-monospace,Menlo,Consolas,monospace;
+    background:var(--me-black-700); padding:1px 5px; border-radius:3px;
+    color:var(--me-gold-300); font-size:12px;
+  }
+  .sheet{ max-width:7.2in; margin:0 auto; }
+
+  /* ---- the card ---- */
+  .card{
+    position:relative; overflow:hidden;
+    height:4.6in;
+    background:var(--me-black);
+    color:var(--me-white);
+    padding:0.34in 0.4in;
+    display:flex; flex-direction:column;
+    page-break-inside:avoid; break-inside:avoid;
+  }
+  /* Signal Red as a hairline only — trim, not a theme. Never touches gold. */
+  .card::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:3px;
+    background:var(--me-red);
+  }
+
+  .card-head{
+    display:flex; align-items:flex-start; justify-content:space-between;
+    gap:0.3in; padding-bottom:0.17in;
+    border-bottom:1px solid var(--me-black-600);
+  }
+  .wordmark{
+    font-family:var(--me-font-display);
+    font-size:20px; line-height:1.05; letter-spacing:.01em;
+    color:var(--me-white); margin:0; text-transform:uppercase;
+  }
+  .wordmark .spark{ color:var(--me-gold); }
+  .tagline{
+    margin:5px 0 0; font-size:9.5px; letter-spacing:.11em;
+    text-transform:uppercase; color:var(--me-black-400);
+  }
+  .lic{
+    text-align:right; font-size:8.5px; line-height:1.5;
+    color:var(--me-black-400); letter-spacing:.04em; padding-top:3px;
+    white-space:nowrap;
+  }
+  .lic b{ color:var(--me-gold-300); font-weight:600; }
+
+  .card-body{
+    flex:1; display:flex; gap:0.34in; align-items:center;
+    padding-top:0.2in;
+  }
+  .copy{ flex:1; min-width:0; }
+  .ask{
+    font-family:var(--me-font-display);
+    font-size:21px; line-height:1.14; margin:0 0 9px;
+    color:var(--me-white);
+  }
+  .ask em{ font-style:normal; color:var(--me-gold); }
+  .sub{
+    margin:0 0 11px; font-size:11px; line-height:1.55;
+    color:var(--me-black-200); max-width:2.8in;
+  }
+  .sub b{ color:var(--me-white); font-weight:600; }
+
+  /* Gold block takes a BLACK label — 9.53:1. Never white on gold. */
+  .linkchip{
+    display:inline-block; background:var(--me-gold); color:var(--me-black);
+    font-weight:700; font-size:10.5px; letter-spacing:.015em;
+    padding:7px 12px; border-radius:3px; word-break:break-all;
+    font-family:ui-monospace,Menlo,Consolas,monospace;
+  }
+
+  /* ---- QR placeholder ---- */
+  .qr-wrap{ flex:0 0 auto; text-align:center; }
+  .qr-box{
+    width:1.45in; height:1.45in;
+    background:var(--me-white);
+    border:2px dashed var(--me-black-400);
+    border-radius:4px;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    text-align:center; padding:8px; gap:3px;
+  }
+  .qr-box .qr-t{
+    font-family:var(--me-font-display); font-size:10px;
+    color:var(--me-black-600); letter-spacing:.04em;
+  }
+  .qr-box .qr-s{
+    font-size:7.5px; line-height:1.45; color:var(--me-slate);
+  }
+  .qr-box img{ width:100%; height:100%; object-fit:contain; display:block; }
+  .qr-cap{
+    margin-top:7px; font-size:8.5px; letter-spacing:.085em;
+    text-transform:uppercase; color:var(--me-gold-300); font-weight:600;
+  }
+
+  .card-foot{
+    border-top:1px solid var(--me-black-600);
+    padding-top:0.14in; margin-top:0.1in;
+    display:flex; justify-content:space-between; align-items:baseline;
+    gap:14px; font-size:10px; color:var(--me-black-200);
+  }
+  .card-foot .phone{
+    font-family:var(--me-font-display); font-size:14px; color:var(--me-white);
+    letter-spacing:.01em;
+  }
+  .card-foot .since{
+    font-size:8.5px; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--me-black-400); text-align:right;
+  }
+
+  .cutline{
+    border:0; border-top:1px dashed var(--me-black-200);
+    margin:0.22in 0; height:0;
+  }
+
+  @media print{
+    body{ background:var(--me-white); }
+    .screen-note{ display:none !important; }
+    .sheet{ max-width:none; margin:0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="screen-note">
+  <strong>INTERNAL — print asset, not part of the website.</strong> Keep this file in
+  <code>growth/</code>; <code>make-deploy.sh</code> publishes everything in
+  <code>assets/</code>.<br><br>
+  <strong>Before printing:</strong>
+  1. Replace <code>REVIEW_LINK_PLACEHOLDER</code> (both cards) with the short
+  <code>g.page</code> link — owner generates it, see
+  <code>growth/REVIEW-ASK-KIT.md</code> §(a).
+  2. Swap the dashed QR box for <code>&lt;img src="qr.png" alt="Scan to review Mills
+  Electric on Google"&gt;</code>.
+  3. <strong>Scan the printed card with a real phone before printing a stack.</strong><br><br>
+  Print at 100% scale with background graphics ON. Two cards per Letter sheet; cut on the
+  dashed line.
+</div>
+
+<div class="sheet">
+
+  <!-- ============ CARD 1 ============ -->
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <p class="wordmark">Mills <span class="spark">Electric</span></p>
+        <p class="tagline">Brockton &amp; the South Shore &middot; Since 1979</p>
+      </div>
+      <div class="lic">
+        MA Master Electrician<br>
+        <b>#A-12245</b><br>
+        Licensed &amp; Insured
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="copy">
+        <p class="ask">Would you take a minute to <em>review us?</em></p>
+        <p class="sub">
+          We've been wiring houses around Brockton since 1979 and we've hardly ever
+          asked anybody to do this. <b>Two sentences is plenty</b> — what we did, and
+          whether we showed up when we said we would.
+        </p>
+        <!-- REPLACE with the short g.page link before printing -->
+        <span class="linkchip">REVIEW_LINK_PLACEHOLDER</span>
+      </div>
+
+      <div class="qr-wrap">
+        <!-- Replace this whole .qr-box div with:
+             <div class="qr-box"><img src="qr.png" alt="Scan to review Mills Electric on Google"></div>
+             Generate free + static only — see REVIEW-ASK-KIT.md §(e). -->
+        <div class="qr-box">
+          <span class="qr-t">QR CODE</span>
+          <span class="qr-s">Place 1.45&Prime; static QR here.<br>See REVIEW-ASK-KIT.md §(e)</span>
+        </div>
+        <p class="qr-cap">Scan with your camera</p>
+      </div>
+    </div>
+
+    <div class="card-foot">
+      <span class="phone">(508) 586-2955</span>
+      <span class="since">Something not right? Call us first — we'll come back out.</span>
+    </div>
+  </div>
+
+  <hr class="cutline">
+
+  <!-- ============ CARD 2 (identical) ============ -->
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <p class="wordmark">Mills <span class="spark">Electric</span></p>
+        <p class="tagline">Brockton &amp; the South Shore &middot; Since 1979</p>
+      </div>
+      <div class="lic">
+        MA Master Electrician<br>
+        <b>#A-12245</b><br>
+        Licensed &amp; Insured
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="copy">
+        <p class="ask">Would you take a minute to <em>review us?</em></p>
+        <p class="sub">
+          We've been wiring houses around Brockton since 1979 and we've hardly ever
+          asked anybody to do this. <b>Two sentences is plenty</b> — what we did, and
+          whether we showed up when we said we would.
+        </p>
+        <span class="linkchip">REVIEW_LINK_PLACEHOLDER</span>
+      </div>
+
+      <div class="qr-wrap">
+        <div class="qr-box">
+          <span class="qr-t">QR CODE</span>
+          <span class="qr-s">Place 1.45&Prime; static QR here.<br>See REVIEW-ASK-KIT.md §(e)</span>
+        </div>
+        <p class="qr-cap">Scan with your camera</p>
+      </div>
+    </div>
+
+    <div class="card-foot">
+      <span class="phone">(508) 586-2955</span>
+      <span class="since">Something not right? Call us first — we'll come back out.</span>
+    </div>
+  </div>
+
+</div>
+
+<!--
+  BRAND COMPLIANCE NOTES (v3.1) — checked against CLAUDE.md:
+    · Signal Red #E90206 appears exactly once, as the 3px top hairline. Trim, not a theme.
+    · Red is NEVER placed against gold anywhere (2.27:1 — hard fail).
+    · Red is never used as type. No red button on this card.
+    · Gold #DFAD37 block carries a BLACK label (9.53:1). No white-on-gold, no gold-on-white.
+    · Gold is flat — no gradient, sheen or bevel. The brushed gradient is signage-only,
+      and this is an ink-on-paper card, so flat is also the safer print choice.
+    · Gold carries no safety or hazard message anywhere on this card.
+    · Body/heading type on Graphite Black uses white or --me-black-200 for contrast.
+    · Archivo Black headings / Inter body, per the brand book.
+
+  DELIBERATELY OMITTED:
+    · The logo PNG. assets/logos/reversed-logo-on-black.png is 660x382 — fine for a
+      165px web masthead, thin for print. A typeset wordmark is used instead. If you
+      want the real lockup here, use brand_assets/logos/me-primary-reversed.png (2370x1371)
+      and keep the 1.73:1 ratio. For a large print run, get vector from the designer
+      (CLAUDE.md: "Ask the designer for SVG/AI/EPS").
+    · The street address. It is DISPUTED — 155 Main St vs 233 Copeland St. See
+      growth/NAP-CONFLICT.md and growth/LISTINGS-AUDIT.md. Do not print an address on
+      this card until the owner settles it.
+    · Hours. Saturday is in conflict across listings (site says 7am-12pm, Yelp and
+      Yahoo say 7am-5pm). See LISTINGS-AUDIT.md §2.3.
+    · The website URL. The site has not launched — every absolute URL is still the
+      https://REPLACE-DOMAIN placeholder. Add it to this card once the domain is live.
+-->
+</body>
+</html>

@@ -42,7 +42,7 @@ contradictory claims on the same site.
 - **5-star percentage**: 100%
 
 ## Key Assets
-- **Hero image**: assets/crew-panel.jpg (electrician at panel)
+- **Hero image**: assets/mills-van.jpg (the lettered black van, from Charlie, Oct 2026). Also the og/twitter/JSON-LD share image on all 14 pages. `crew-panel.jpg` is kept but unused.
 - **Service area map**: assets/mills-electric-map.png (Brockton location)
 - **Brand logos (v3.1, current)**: brand_assets/logos/ — 10 PNGs:
   `me-primary`, `me-horizontal`, `me-mark`, `me-badge-circle`, `me-badge-hex`,

@@ -38,6 +38,9 @@ done
 # Both contain the literal https://REPLACE-DOMAIN until the domain is set.
 cp sitemap.xml robots.txt deploy/
 
+# --- Cloudflare Pages headers (noindex on the staging address) ----------------
+cp _headers deploy/
+
 cp -R assets deploy/
 
 # macOS sprinkles .DS_Store through any folder it has been browsed in, and
