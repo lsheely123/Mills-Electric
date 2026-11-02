@@ -8,9 +8,12 @@
   BBB, D&B, BuildZoom, Manta, Yahoo *and the Google Business Profile pin linked below*
   all publish **233 Copeland St**. The JSON-LD ships an `ADDRESS_UNCONFIRMED` placeholder
   rather than guess. Full evidence and resolution steps: `growth/NAP-CONFLICT.md`.
-  Confirm with the owner before launch.
+  Confirm with the owner before launch. A street is **not required**: `tools/go-live.py
+  --no-street` publishes "Brockton, MA 02301" only (valid for a service-area business).
+- **Launch timing**: the domain is bought only after Charlie pays (Logan, 2026-11-02).
+  Until then the site stays on the noindex staging address.
 - **Hours**: Mon–Fri 7am–5pm, Sat 7am–12pm, 24/7 emergencies
-- **Founded**: 1979
+- **Founded**: 1979 — **settled by Logan 2026-11-02.** BBB lists "Business Started 1/1/1984"; ignore it. Keep 1979 and the 47 / 56 years.
 
 ## Company Stats (the "by the numbers" block)
 These four appear **twice** — `index.html` ("Why Mills") and `about.html` ("By the
@@ -34,7 +37,7 @@ contradictory claims on the same site.
 ## Online Presence
 - **GitHub**: https://github.com/lsheely123/Mills-Electric
 - **Google Maps**: https://maps.app.goo.gl/pc68XnQNeTdRhR8U7
-- **License**: MA Master Electrician #A-12245
+- **License**: MA Master Electrician #A-12245 — **settled by Logan 2026-11-02.** The van lettering reads "#11245A"; the site keeps #A-12245.
 
 ## Current Google Ratings
 - **Average**: 5.0 stars

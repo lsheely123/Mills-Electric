@@ -164,3 +164,9 @@ address in the schema at all.** Resolve this first.
    Yahoo to match.
 5. Either way: once settled, make every listing identical, down to the abbreviation
    (`St` vs `Street`). Consistency is the whole point.
+
+## Decisions (Logan, 2026-11-02)
+- **Licence:** #A-12245 stays. The van's "#11245A" lettering is not used.
+- **Founding year:** 1979 stays, with the 47 / 56-year stats. BBB's 1984 is not used.
+- **Street address:** still open. A street is optional; `tools/go-live.py --no-street`
+  launches with city, state and ZIP only if Charlie would rather not publish one.

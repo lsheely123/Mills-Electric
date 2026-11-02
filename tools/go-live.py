@@ -6,11 +6,14 @@ domain has been bought:
 
     python3 tools/go-live.py --domain millselectricinc.com --street "233 Copeland St"
     python3 tools/go-live.py --domain ... --street ... --lat 42.05 --lng -71.02
+    python3 tools/go-live.py --domain ... --no-street   # service-area business: city only
     python3 tools/go-live.py ... --no-deploy        # change files only
 
 What it does, in order:
   1. Writes the confirmed street into the Electrician JSON-LD (index.html) and into
      the two places a visitor sees the address (index.html footer, contact.html).
+     With --no-street it removes the street from all three instead and keeps
+     "Brockton, MA 02301" (city, state and ZIP still satisfy Google's address field).
   2. Writes --lat/--lng into the schema's geo block. Without them it removes the geo
      block instead: a LocalBusiness with no coordinates is fine, junk ones are not.
      For 233 Copeland St the Google Business Profile pin is 42.0535487, -71.0209167
@@ -56,7 +59,10 @@ def files_with_placeholder():
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--domain", required=True, help="bare domain, e.g. millselectricinc.com")
-    ap.add_argument("--street", required=True, help='confirmed street line, e.g. "233 Copeland St"')
+    where = ap.add_mutually_exclusive_group(required=True)
+    where.add_argument("--street", help='confirmed street line, e.g. "233 Copeland St"')
+    where.add_argument("--no-street", action="store_true",
+                       help="publish city, state and ZIP only (service-area business)")
     ap.add_argument("--lat", type=float)
     ap.add_argument("--lng", type=float)
     ap.add_argument("--no-deploy", action="store_true", help="change files but do not build/upload")
@@ -65,9 +71,11 @@ def main():
     domain = a.domain.strip().lower().removeprefix("https://").removeprefix("http://").rstrip("/")
     if not re.fullmatch(r"(?:[a-z0-9-]+\.)+[a-z]{2,}", domain) or domain.endswith("pages.dev"):
         die(f"'{a.domain}' does not look like a real domain")
-    street = a.street.strip()
-    if not re.fullmatch(r"\d+[A-Za-z]? [A-Za-z0-9 .'-]+", street):
+    street = None if a.no_street else a.street.strip()
+    if street is not None and not re.fullmatch(r"\d+[A-Za-z]? [A-Za-z0-9 .'-]+", street):
         die(f"'{street}' does not look like a street line (expected e.g. '233 Copeland St')")
+    if a.no_street and a.lat is not None:
+        die("--no-street publishes no coordinates; drop --lat/--lng")
     if (a.lat is None) != (a.lng is None):
         die("give both --lat and --lng, or neither")
 
@@ -77,7 +85,10 @@ def main():
         die("index.html has no ADDRESS_UNCONFIRMED — has this already been run?")
 
     # 1. schema street
-    s = s.replace('"streetAddress": "ADDRESS_UNCONFIRMED"', f'"streetAddress": "{street}"')
+    if street is None:
+        s = s.replace('    "streetAddress": "ADDRESS_UNCONFIRMED",\n', "")
+    else:
+        s = s.replace('"streetAddress": "ADDRESS_UNCONFIRMED"', f'"streetAddress": "{street}"')
     # 2. schema geo
     geo = re.compile(r',\n  "geo": \{\n    "@type": "GeoCoordinates",\n'
                      r'    "latitude": "GEO_UNCONFIRMED",\n    "longitude": "GEO_UNCONFIRMED"\n  \}')
@@ -95,9 +106,10 @@ def main():
         for name in ("index.html", "contact.html"):
             p = ROOT / name
             t = p.read_text(encoding="utf-8")
-            if OLD_STREET not in t:
+            old = OLD_STREET + "<br>"
+            if old not in t:
                 die(f"{name}: expected '{OLD_STREET}' in the visible address")
-            p.write_text(t.replace(OLD_STREET, street), encoding="utf-8")
+            p.write_text(t.replace(old, "" if street is None else street + "<br>"), encoding="utf-8")
 
     # 3. domain
     changed = files_with_placeholder()
@@ -126,7 +138,7 @@ go-live: files are set for https://{domain}. Remaining steps:
   2. Check https://{domain} loads, then review `git diff` and commit.
   3. Google Search Console: add the domain property and submit https://{domain}/sitemap.xml.
   4. Google Business Profile: set the website to https://{domain}/ and make the
-     address match "{street}".
+     address match {"its listing (or set it as a service-area business)" if street is None else repr(street)}.
 """)
 
 
