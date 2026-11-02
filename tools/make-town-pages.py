@@ -410,11 +410,13 @@ def masthead():
       <img src="assets/logos/reversed-logo-on-black.png" alt="Mills Electric Inc" width="165" height="95">
     </a>
     <nav class="nav" aria-label="Main">
-      <a class="navlink" href="index.html">Home</a>
-      <a class="navlink" href="services.html">Services</a>
-      <a class="navlink" href="about.html">About</a>
-      <a class="navlink" href="reviews.html">Reviews</a>
-      <a class="navlink" href="contact.html">Contact</a>
+      <div class="navgroup">
+        <a class="navlink" href="index.html">Home</a>
+        <a class="navlink" href="services.html">Services</a>
+        <a class="navlink" href="about.html">About</a>
+        <a class="navlink" href="reviews.html">Reviews</a>
+        <a class="navlink" href="contact.html">Contact</a>
+      </div>
       <a class="btn btn-primary btn-sm" href="tel:+15085862955">{PHONE_SVG}(508)-586-2955</a>
     </nav>
   </div>
@@ -605,14 +607,14 @@ def build(t, others):
 <meta property="og:description" content="{esc(t['desc'])}">
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{DOMAIN}/assets/mills-van.jpg">
-<meta property="og:image:width" content="1280">
-<meta property="og:image:height" content="852">
-<meta property="og:image:alt" content="A Mills Electric crew member working inside an open service panel">
+<meta property="og:image:width" content="1672">
+<meta property="og:image:height" content="941">
+<meta property="og:image:alt" content="The black Mills Electric work van, lettered in gold, parked outside a house in Brockton">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{esc(t['title'])}">
 <meta name="twitter:description" content="{esc(t['desc'])}">
 <meta name="twitter:image" content="{DOMAIN}/assets/mills-van.jpg">
-<meta name="twitter:image:alt" content="A Mills Electric crew member working inside an open service panel">
+<meta name="twitter:image:alt" content="The black Mills Electric work van, lettered in gold, parked outside a house in Brockton">
 {jsonld(t)}
 </head>
 <body>

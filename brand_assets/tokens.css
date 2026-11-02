@@ -58,6 +58,13 @@
   --me-mist:  #F6F6F7;
   --me-white: #FFFFFF;
 
+  /* Silver — added Nov 2026 for the website's silver sections (graphite + silver
+     surfaces, no bright white on screen). silver-700 is the muted text on silver. */
+  --me-silver-100: #E6E6EA;
+  --me-silver-200: #D4D4D9;
+  --me-silver-300: #BDBDC4;
+  --me-silver-700: #4A4A50;
+
   /* Status — light surfaces / black surfaces.
      danger is red-700, deliberately deeper than brand red-500.
      warning stays burnt orange — never gold, or it stops reading as a status.

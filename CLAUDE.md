@@ -42,7 +42,7 @@ contradictory claims on the same site.
 - **5-star percentage**: 100%
 
 ## Key Assets
-- **Hero image**: assets/mills-van.jpg (the lettered black van, from Charlie, Oct 2026). Also the og/twitter/JSON-LD share image on all 14 pages. `crew-panel.jpg` is kept but unused.
+- **Hero image**: assets/mills-van.jpg (the lettered black van, from Charlie, Oct 2026). Also the og/twitter/JSON-LD share image on all 14 pages (og:image 1672×941, alt describes the van). `crew-panel.jpg` is the inner-page pagehead photo and the process-band photo.
 - **Service area map**: assets/mills-electric-map.jpg (1200×807, Brockton location). Shown on
   index.html beside the service-area table and on contact.html. The 1.1 MB PNG was retired Nov 2026.
 - **Brand logos (v3.1, current)**: brand_assets/logos/ — 10 PNGs:
@@ -145,13 +145,17 @@ Source of truth: `brand_assets/mills-electric-brand-book.html` (**v3.1**). Token
   a gradient (~#8B0000 to #FE493A); 3.1 uses one measured value. Never re-apply a gradient.
 - **Red ramp**: 800 `#7E0103` · 700 `#B60205` · 600 `#C50205` · 500 `#E90206` ·
   300 `#FE6C6F` · 100 `#FDBABB` · 50 `#FEE9EA`
-- **Color mix**: roughly 65% black/neutrals, 25% white, 8% gold, 2% red
+- **Color mix**: roughly 65% black/neutrals, 25% white, 8% gold, 2% red (print/brand).
+  **The website has no bright-white backgrounds** (Charlie's call, Nov 2026) — see
+  "Website surfaces" below.
+- **Silver ramp (added Nov 2026)**: 100 `#E6E6EA` · 200 `#D4D4D9` · 300 `#BDBDC4` ·
+  700 `#4A4A50`. In tokens.css as `--me-silver-*` and in the brand book's Color section.
 - **Font**: Inter (body), Archivo Black (headings)
 - **Gold ramp**: 700 `#6E5212` · 600 `#B98A1E` · 500 `#DFAD37` · 300 `#EAC97B` ·
   100 `#EEDEB9` · 50 `#F8F3E8`
 - **Token renames**: `--me-navy-*` → `--me-black-*`, `--me-yellow-*` → `--me-gold-*`.
   Not aliased on purpose, so a stale `--me-navy-800` fails loudly.
-- **CSS**: assets/site.css (v3.1) — **JS**: assets/site.js (masthead scroll state only)
+- **CSS**: assets/site.css (v3.1) — **JS**: assets/site.js (masthead scroll state: red rule via `.past-dark`, and `.mast-hidden` slides the header away on scroll down and back on scroll up)
 
 ### Superseded palettes (historical)
 - v2.0: Navy #07224B, Volt Yellow #FECA04, Signal Red #E4151B (gradient bolt)
@@ -179,6 +183,27 @@ estimates / 5.0 bar), `.svc-grid .card-featured .card-dark`, `.stats-band .stats
 phone number), `.callbar` (sticky Call / Estimate bar ≤600px; the masthead phone button hides
 there), `.foot-grid` etc., `.check-list .rule-list .link-gold .link-ink .chips-dark`.
 Masthead phone button is `btn-primary` (gold) — allowed, the masthead is its own section.
+
+### Website surfaces — graphite + silver (Nov 2026, final)
+- Ordinary sections are **graphite** `#111113`, cards **charcoal** `#1A1A1D`; `.mist`
+  sections are **silver** `#D4D4D9` with `#E6E6EA` cards; `.dark`/`.band`/footer stay black.
+- Every light-surface colour goes through surface tokens at the top of site.css
+  (`--page --surface --surface-head --line-c --text --text-strong --text-muted --tint --row
+  --eyebrow --link --icon --star --field*`). `.mist` redefines them as silver. **New
+  components must use these tokens, never `--white`/`--black`/`--slate` directly**, or
+  they break on one of the two surfaces.
+- Text-gold: `gold-300` on graphite, `gold-700` on silver (via `--eyebrow`/`--link`).
+- `.stats-band` (van) and `.process-band` (panel shot) carry a darkened photo.
+- `:root{color-scheme:dark}` (silver sections set light) so native selects stay readable.
+
+### Header (Nov 2026, final)
+- `.masthead` is `position:fixed`, **transparent over the hero/pagehead photo**, and turns
+  solid black (`.is-solid`) once the page scrolls. It hides on scroll down (`.mast-hidden`)
+  and returns on scroll up. All three classes are toggled by assets/site.js.
+- site.js publishes the header height as `--mast-h`; `.hero`/`.pagehead` pad their copy by
+  it (CSS fallback 147px). Pages with neither get `body` padding instead.
+- The five links sit in a see-through glass bar, `.navgroup` (28% black, blur 10px), in
+  all 14 pages and in `masthead()` in tools/make-town-pages.py.
 Type scale stepped up on the 1.25 ratio: display 4.768rem, h2 3.05rem, pagehead h1 3.815rem.
 
 ### Logo sizing gotcha
@@ -207,7 +232,7 @@ badge-circle **1.07:1** (nearly square), badge-hex **1.42:1**.
 - On the live site red appears in exactly three places: the masthead edge, the hero's
   12° sheared bottom edge (the cut is `clip-path` on `.hero`, the 4px line is `.hero::after`),
   and the contact form's error state. There is no red button. The hero has **no gold border**
-  so the red line never meets gold; it meets the white trust bar.
+  so the red line never meets gold; it meets the graphite page and the black trust bar.
 
 ### Gold rules (v3.1)
 - Gold is **flat on screen** — no gradient, sheen or bevel. The brushed gradient
@@ -224,15 +249,21 @@ badge-circle **1.07:1** (nearly square), badge-hex **1.42:1**.
 Before this pass the site had no JSON-LD, no sitemap, no robots.txt, no canonicals and
 no Open Graph on any page. All six were added, plus the eight town pages.
 
-### 🚨 `https://REPLACE-DOMAIN` — the one thing blocking launch
-Every absolute URL on the site is the literal placeholder `https://REPLACE-DOMAIN`.
-**One case-sensitive find-replace across the repo sets all of them**, then rebuild:
+### 🚨 Going live — use `tools/go-live.py`, not a hand find-replace
+Every absolute URL on the site is the literal placeholder `https://REPLACE-DOMAIN`, and the
+schema carries `ADDRESS_UNCONFIRMED`/`GEO_UNCONFIRMED`. Once the domain is bought and
+Charlie has confirmed the address, one command sets all of it, rebuilds and deploys:
 
 ```sh
-grep -rl 'REPLACE-DOMAIN' --include='*.html' --include='*.xml' --include='*.txt' . \
-  | xargs sed -i '' 's|https://REPLACE-DOMAIN|https://therealdomain.com|g'
-./make-deploy.sh
+python3 tools/go-live.py --domain therealdomain.com --street "233 Copeland St" \
+  --lat 42.0535487 --lng -71.0209167      # coords only if Copeland St is confirmed
 ```
+
+It writes the street into the schema **and** the visible address (index footer, contact
+card), writes or drops the geo block, replaces the domain in every file, regenerates the
+town pages, refuses to deploy if any placeholder survives, then prints the dashboard steps
+(custom domain on the Pages project, Search Console, Google Business Profile). Tested on a
+copy: 18 files, valid JSON-LD, refuses a second run.
 
 It appears in: all 14 pages (canonical, `og:url`, `og:image`, `twitter:image`, every
 JSON-LD `@id`/`url`), `sitemap.xml` (13 `<loc>`), `robots.txt` (the `Sitemap:` line),
@@ -265,8 +296,12 @@ so they resolve on any host. Cloudflare Pages *also* serves the extensionless fo
 in `sitemap.xml` **and** every page's canonical/`og:url` together — never one alone.
 
 ## Deployment
-- Run `./make-deploy.sh` to build the `deploy/` folder
-- Deploy folder ready for Cloudflare Pages
+- Hosted on **Cloudflare Pages**, project `mills-electric`, staged at
+  https://mills-electric.pages.dev (noindex via `_headers`). **Not Vercel** — the old
+  Vercel project was deleted 2026-11-02 because it published the whole repo.
+- `./make-deploy.sh` builds `deploy/` (and regenerates the 8 town pages first).
+- `./make-deploy.sh --deploy` builds **and uploads** to Cloudflare. Direct upload only —
+  pushing to GitHub never changes the live site (Isidore SITES.md rule 2).
 - Excludes: brand_assets/, tools/, _archive/, growth/, screenshots/
 - Ships **14 HTML pages + sitemap.xml + robots.txt + assets/**. The script warns if the
   page count is not 14, refuses to build if designer source art is found under `assets/`,
@@ -278,7 +313,7 @@ When making changes:
 2. Keep phone, email, and hours consistent across all 14 HTML pages
    (town pages: edit `tools/make-town-pages.py` and re-run, don't edit the HTML)
 3. Update Google ratings in index.html and reviews.html snapshots
-4. Rebuild deploy/ folder before pushing: `./make-deploy.sh`
+4. Rebuild and publish: `./make-deploy.sh --deploy`
 5. Commit and push with clear message: `git commit -m "Update [what changed]"`
 
 ## Notes

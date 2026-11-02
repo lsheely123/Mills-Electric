@@ -12,6 +12,12 @@
    Never red touching gold (2.27:1) — keep black or white between them.
    The hero therefore has NO gold border: its red edge meets the white trust bar.
 
+   Surfaces (Nov 2026, "graphite + silver"): the site has no bright-white backgrounds.
+   Ordinary sections are graphite; .mist sections are silver; .dark/.band stay black,
+   and the stats and process bands carry a darkened photo. Every light-surface colour
+   goes through the --page/--surface/--text... tokens below, which .mist redefines, so a
+   component never needs to know which surface it sits on.
+
    Gold is flat on screen. The brushed sheen belongs to the lockup artwork and to
    large-format print only — never to a CSS fill. Gold is used as: one primary
    button per section, icon-in-black-box, 2–4px rules, the quote glyph. Never a fill. */
@@ -24,6 +30,25 @@
   --red:#E90206; --red-800:#7E0103; --red-700:#B60205; --red-600:#C50205;
   --red-300:#FE6C6F; --red-100:#FDBABB; --red-50:#FEE9EA;
   --ink:#111113; --slate:#6B6B73; --line:#DCDCE0; --mist:#F6F6F7; --white:#fff;
+  /* silver ramp (added Nov 2026 for the silver sections; mirrored in tokens.css) */
+  --silver-300:#BDBDC4; --silver-200:#D4D4D9; --silver-100:#E6E6EA; --silver-700:#4A4A50;
+
+  /* surface tokens — graphite defaults. .mist redefines them as silver. */
+  --page:var(--ink);            /* section background            */
+  --surface:var(--black-700);   /* cards, FAQ, snapshot          */
+  --surface-head:var(--black);  /* snapshot header strip          */
+  --line-c:var(--black-600);    /* hairlines and card borders     */
+  --line-strong:var(--black-400);
+  --text:var(--black-200);      /* body copy        12.1:1 on page */
+  --text-strong:var(--white);   /* headings, labels               */
+  --text-muted:var(--black-400);/* captions          5.2:1 on surface */
+  --tint:var(--black-600);      /* icon boxes, chips, hovers      */
+  --row:var(--ink);             /* zebra rows inside a card       */
+  --eyebrow:var(--gold-300);    /* eyebrow labels + check icons   */
+  --link:var(--gold-300);       /* gold link text                 */
+  --icon:var(--gold);           /* icon-box glyph                 */
+  --star:var(--gold);
+  --field:var(--ink); --field-line:var(--slate); --field-focus:var(--black);  /* slate border 3.2:1 */
   --success:#15803D; --warning:#B54708; --danger:#B60205; --info:#0E7490;
 
   --shadow-sm:0 1px 2px rgba(11,11,12,.08);
@@ -39,10 +64,12 @@
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0; background:var(--white); color:var(--ink);
+/* native controls (select lists, scrollbars) follow the surface */
+:root{color-scheme:dark}
+body{margin:0; background:var(--page); color:var(--text);
   font-family:'Inter',-apple-system,'Segoe UI',sans-serif;
   font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased}
-h1,h2,h3,h4{margin:0; text-wrap:balance; color:var(--black)}
+h1,h2,h3,h4{margin:0; text-wrap:balance; color:var(--text-strong)}
 p{margin:0}
 img{max-width:100%; display:block}
 /* baseline icon size — class rules below (.btn svg, .stars svg, ...) override this */
@@ -67,11 +94,11 @@ ul,ol{margin:0; padding:0; list-style:none}
 .t-caption{font-size:.75rem; line-height:1.45; font-weight:500}
 /* eyebrow: a short gold rule leads every section label */
 .t-eyebrow{font-size:.75rem; line-height:1.2; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
-  color:var(--gold-700)}
+  color:var(--eyebrow)}
 .t-eyebrow::before{content:""; display:inline-block; width:32px; height:2px; background:var(--gold);
   vertical-align:middle; margin-right:12px; position:relative; top:-1px}
-.t-eyebrow.muted{color:var(--slate)}
-.t-eyebrow.muted::before{background:var(--line)}
+.t-eyebrow.muted{color:var(--text-muted)}
+.t-eyebrow.muted::before{background:var(--line-c)}
 .snapshot-head .t-eyebrow::before{display:none}
 .dark .t-eyebrow, .hero .t-eyebrow, .pagehead .t-eyebrow, .band .t-eyebrow, .crumb{color:var(--gold-300)}
 .crumb{margin-bottom:16px}
@@ -85,7 +112,12 @@ ul,ol{margin:0; padding:0; list-style:none}
 .wrap{max-width:1200px; margin:0 auto; padding-inline:24px}
 .section{padding-block:96px}
 .section-sm{padding-block:64px}
-.mist{background:var(--mist); border-block:1px solid var(--line)}
+.mist{--page:var(--silver-200); --surface:var(--silver-100); --surface-head:var(--black-200);
+  --line-c:var(--silver-300); --line-strong:var(--slate); --text:var(--ink); --text-strong:var(--black);
+  --text-muted:var(--silver-700); --tint:var(--black-200); --row:var(--silver-200);
+  --eyebrow:var(--gold-700); --link:var(--gold-700); --icon:var(--black); --star:var(--gold-600);
+  --field:var(--silver-100); --field-line:var(--slate); --field-focus:var(--white);
+  background:var(--page); color:var(--text); color-scheme:light}
 .dark{background:var(--black); color:var(--white)}
 .dark .t-lead,.dark p{color:var(--black-200)}
 .dark .muted{color:var(--black-200)}
@@ -111,8 +143,8 @@ ul,ol{margin:0; padding:0; list-style:none}
 .btn-ondark{background:var(--white); color:var(--black)}
 .btn-ondark:focus-visible{box-shadow:var(--focus-dark)}
 .btn-ondark:hover{background:var(--black-50)}
-.btn-outline{background:transparent; color:var(--black); box-shadow:inset 0 0 0 2px currentColor}
-.btn-outline:hover{background:var(--black-50)}
+.btn-outline{background:transparent; color:var(--text-strong); box-shadow:inset 0 0 0 2px currentColor}
+.btn-outline:hover{background:var(--tint)}
 .btn-outline:focus-visible{box-shadow:inset 0 0 0 2px currentColor, var(--focus)}
 .btn-sm{height:40px; padding-inline:16px; font-size:.875rem}
 .actions{display:flex; flex-wrap:wrap; gap:16px; margin-top:32px}
@@ -120,9 +152,18 @@ ul,ol{margin:0; padding:0; list-style:none}
 .actions-tight{margin-top:0}
 
 /* ---------- header ---------- */
-.masthead{background:var(--black); border-bottom:3px solid transparent;
-  position:sticky; top:0; z-index:40;
-  transition:border-bottom-color var(--ease) 200ms}
+.masthead{background:transparent; border-bottom:3px solid transparent;
+  position:fixed; top:0; left:0; right:0; z-index:40;
+  transition:background var(--ease) 200ms, border-bottom-color var(--ease) 200ms, transform var(--ease) 280ms}
+/* The header floats over the hero/pagehead photo at the top of the page and turns
+   solid black as soon as the page scrolls (.is-solid, toggled in assets/site.js).
+   The hero and pagehead pad their copy by --mast-h (measured by site.js) so nothing
+   sits under it. */
+.masthead.is-solid{background:var(--black)}
+body:not(:has(.hero, .pagehead)){padding-top:var(--mast-h,147px)}
+/* Hides on scroll down, returns on any scroll up. Toggled by .mast-hidden in
+   assets/site.js; never applied while focus is inside the header. */
+.masthead.mast-hidden{transform:translateY(-100%)}
 /* The red trim only earns its edge against light content. While the black hero or
    pagehead is still behind the header the border stays transparent — red on black is
    4.19:1 and reads as decoration rather than an edge. Width never changes, so nothing
@@ -136,21 +177,31 @@ ul,ol{margin:0; padding:0; list-style:none}
 .masthead img{width:165px; height:auto}  /* brand book: 160px digital minimum for the lockup */
 .logo-link{display:block; border-radius:4px}
 .logo-link:focus-visible{outline:0; box-shadow:var(--focus-dark)}
-.nav{display:flex; align-items:center; gap:24px; margin-left:auto}
-.navlink{color:var(--black-200); text-decoration:none; font-size:.875rem; font-weight:600;
-  padding:8px 0; position:relative; transition:color var(--ease) 200ms}
-.navlink::after{content:""; position:absolute; left:0; right:0; bottom:0; height:2px;
+.nav{display:flex; align-items:center; gap:16px; margin-left:auto}
+/* the five links sit in one see-through glass bar so they read over any photo */
+.navgroup{display:flex; gap:4px; padding:6px; border-radius:10px; background:rgba(11,11,12,.28);
+  border:1px solid rgba(255,255,255,.20); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px)}
+.navlink{color:var(--white); text-decoration:none; font-size:.9375rem; font-weight:600;
+  padding:10px 16px; border-radius:6px; position:relative; text-shadow:0 1px 8px rgba(0,0,0,.55);
+  transition:color var(--ease) 200ms, background var(--ease) 200ms}
+.navlink::after{content:""; position:absolute; left:16px; right:16px; bottom:6px; height:2px;
   background:var(--gold); transform:scaleX(0); transform-origin:left;
   transition:transform var(--ease) 200ms}
-.navlink:hover{color:var(--white)}
+.navlink:hover{background:rgba(255,255,255,.10)}
 .navlink:hover::after, .navlink[aria-current="page"]::after{transform:scaleX(1)}
-.navlink[aria-current="page"]{color:var(--white)}
+.navlink[aria-current="page"]{background:rgba(255,255,255,.14)}
 .navlink:focus-visible{outline:0; box-shadow:var(--focus-dark); border-radius:2px}
-.nav .btn{margin-left:8px}
+.nav .btn{margin-left:8px; height:52px; padding-inline:24px; font-size:1rem; font-weight:700;
+  box-shadow:0 8px 22px rgba(0,0,0,.45)}
 @media (max-width:960px){
   .masthead-in{flex-wrap:wrap; gap:16px; padding-block:16px}
   .nav{width:100%; margin-left:0; flex-wrap:wrap; order:3; gap:16px}
   .nav .btn{margin-left:auto}
+}
+@media (max-width:600px){
+  .navgroup{width:100%; justify-content:space-between; gap:0; padding:4px}
+  .navlink{font-size:.8125rem; padding:8px 8px}
+  .navlink::after{left:8px; right:8px; bottom:4px}
 }
 /* the sticky call bar carries the gold Call on phones, so the masthead one goes */
 @media (max-width:600px){ .nav .btn{display:none} }
@@ -167,23 +218,24 @@ ul,ol{margin:0; padding:0; list-style:none}
 .pagehead-bg img{object-position:70% 40%}
 .hero-bg::after,.pagehead-bg::after{content:""; position:absolute; inset:0}
 .hero-bg::after{background:
-  linear-gradient(180deg, rgba(11,11,12,.85) 0, rgba(11,11,12,0) 160px),
+  linear-gradient(180deg, rgba(11,11,12,.55) 0, rgba(11,11,12,.20) 140px, rgba(11,11,12,0) 240px),
   linear-gradient(90deg, rgba(11,11,12,.94) 0%, rgba(11,11,12,.80) 38%, rgba(11,11,12,.28) 68%, rgba(11,11,12,0) 100%)}
 .pagehead-bg::after{background:
+  linear-gradient(180deg, rgba(11,11,12,.45) 0, rgba(11,11,12,0) 200px),
   linear-gradient(90deg, rgba(11,11,12,.92) 0%, rgba(11,11,12,.78) 60%, rgba(11,11,12,.70) 100%)}
 .hero p,.pagehead p{color:var(--black-200)}
 
 /* ---------- home hero ----------
    The bolt accent: the bottom-right corner is cut at exactly 12deg (rise 128 / run 602 =
    tan 12deg) and a 4px Signal Red line runs along the cut. One diagonal per page. */
-.hero{min-height:620px; display:flex; align-items:center;
+.hero{min-height:calc(620px + var(--mast-h,147px)); display:flex; align-items:center;
   clip-path:polygon(0 0, 100% 0, 100% calc(100% - 128px), calc(100% - 602px) 100%, 0 100%)}
 .hero::after{content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
   background:var(--red);
   clip-path:polygon(calc(100% - 621px) 100%, calc(100% - 602px) 100%,
                     100% calc(100% - 128px), 100% calc(100% - 132px))}
 .hero .wrap{width:100%}
-.hero-copy{max-width:640px; padding-block:96px 128px}
+.hero-copy{max-width:640px; padding-block:calc(96px + var(--mast-h,147px)) 128px}
 .hero-copy .t-lead{max-width:52ch}
 @keyframes rise{from{opacity:0; transform:translateY(12px)} to{opacity:1; transform:none}}
 .hero-copy > *{animation:rise 480ms var(--ease) both}
@@ -191,28 +243,33 @@ ul,ol{margin:0; padding:0; list-style:none}
 .hero-copy > :nth-child(3){animation-delay:120ms}
 .hero-copy > :nth-child(4){animation-delay:180ms}
 @media (max-width:960px){
-  .hero{min-height:560px;
+  .hero{min-height:calc(560px + var(--mast-h,147px));
     clip-path:polygon(0 0, 100% 0, 100% calc(100% - 96px), calc(100% - 452px) 100%, 0 100%)}
   .hero::after{clip-path:polygon(calc(100% - 471px) 100%, calc(100% - 452px) 100%,
                                  100% calc(100% - 96px), 100% calc(100% - 100px))}
-  .hero-copy{padding-block:64px 128px}
+  .hero-copy{padding-block:calc(64px + var(--mast-h,147px)) 128px}
 }
 @media (max-width:600px){
   /* full-width cut: 21.26vw = width x tan 12deg */
-  .hero{min-height:520px; align-items:flex-end;
+  .hero{min-height:calc(520px + var(--mast-h,147px)); align-items:flex-end;
     clip-path:polygon(0 0, 100% 0, 100% calc(100% - 21.26vw), 0 100%)}
   .hero::after{clip-path:polygon(0 100%, 100% calc(100% - 21.26vw),
                                  100% calc(100% - 21.26vw - 4px), 0 calc(100% - 4px))}
   .hero-bg img{object-position:72% 45%}
-  .hero-copy{padding-block:48px calc(21.26vw + 40px)}
+  /* the copy stacks over the van on phones: shade the whole photo so the van's own
+     lettering never fights the headline, lightest just under the header */
+  .hero-bg::after{background:linear-gradient(180deg, rgba(11,11,12,.55) 0, rgba(11,11,12,.82) 30%,
+    rgba(11,11,12,.88) 100%)}
+  .hero-copy{padding-block:calc(48px + var(--mast-h,147px)) calc(21.26vw + 40px)}
 }
 
 /* ---------- trust bar (under the hero) ---------- */
-.trust{background:var(--white); border-bottom:1px solid var(--line)}
+.trust{background:var(--black); border-bottom:1px solid var(--line-c)}
 .trust-in{display:grid; grid-template-columns:repeat(4,1fr); gap:24px; padding-block:24px}
 .trust-item{display:flex; align-items:center; gap:12px; font-size:.875rem; font-weight:600;
-  color:var(--black); min-width:0}
-.trust-icon{width:40px; height:40px; border-radius:6px; background:var(--black); color:var(--gold);
+  color:var(--white); min-width:0}
+.trust-icon{width:40px; height:40px; border-radius:6px; background:var(--black-700); color:var(--gold);
+  box-shadow:inset 0 0 0 1px var(--black-600);
   display:grid; place-items:center; flex:none}
 .trust-icon svg{width:20px; height:20px}
 .trust-item .stars{margin-left:4px}
@@ -220,19 +277,20 @@ ul,ol{margin:0; padding:0; list-style:none}
 @media (max-width:600px){ .trust-in{grid-template-columns:1fr; gap:12px; padding-block:16px} }
 
 /* ---------- inner-page hero ---------- */
-.pagehead{min-height:360px; display:flex; align-items:center; padding-block:80px;
+.pagehead{min-height:calc(360px + var(--mast-h,147px)); display:flex; align-items:center;
+  padding-block:calc(80px + var(--mast-h,147px)) 80px;
   border-bottom:4px solid var(--gold)}
 .pagehead .wrap{width:100%}
 .pagehead-copy{max-width:720px}
-@media (max-width:600px){ .pagehead{min-height:0; padding-block:48px} }
+@media (max-width:600px){ .pagehead{min-height:0; padding-block:calc(48px + var(--mast-h,147px)) 48px} }
 
 /* ---------- cards ---------- */
-.card{background:var(--white); border:1px solid var(--line); border-radius:10px; padding:32px;
+.card{background:var(--surface); border:1px solid var(--line-c); border-radius:10px; padding:32px;
   box-shadow:var(--shadow-sm); position:relative; overflow:hidden;
   transition:box-shadow var(--ease) 200ms, border-color var(--ease) 200ms, transform var(--ease) 200ms}
 .card-hover::before{content:""; position:absolute; inset:0 0 auto 0; height:4px; background:var(--gold);
   transform:scaleX(0); transform-origin:left; transition:transform var(--ease) 200ms}
-.card-hover:hover{box-shadow:var(--shadow-lg); border-color:var(--black-200); transform:translateY(-4px)}
+.card-hover:hover{box-shadow:var(--shadow-lg); border-color:var(--line-strong); transform:translateY(-4px)}
 .card-hover:hover::before{transform:scaleX(1)}
 .card-link{text-decoration:none; display:block; color:inherit}
 .card-link:focus-visible{outline:0; box-shadow:var(--focus)}
@@ -243,7 +301,7 @@ ul,ol{margin:0; padding:0; list-style:none}
 .card-dark .btn-outline:hover{background:var(--black-700)}
 .card-dark .btn-outline:focus-visible{box-shadow:inset 0 0 0 2px currentColor, var(--focus-dark)}
 .card-dark:hover{border-color:var(--black-400)}
-.icon-box{width:56px; height:56px; border-radius:6px; background:var(--black-50); color:var(--black);
+.icon-box{width:56px; height:56px; border-radius:6px; background:var(--tint); color:var(--icon);
   display:flex; align-items:center; justify-content:center; margin-bottom:24px}
 .icon-box svg{width:24px; height:24px}
 .card-flat{padding:0}
@@ -263,32 +321,32 @@ ul,ol{margin:0; padding:0; list-style:none}
 
 /* lists inside cards */
 .check-list li{display:grid; grid-template-columns:auto 1fr; gap:12px; padding-block:12px;
-  border-top:1px solid var(--line); align-items:start}
-.check-list svg{width:20px; height:20px; color:var(--gold-700); margin-top:2px}
+  border-top:1px solid var(--line-c); align-items:start}
+.check-list svg{width:20px; height:20px; color:var(--eyebrow); margin-top:2px}
 .check-list-lg li{padding-block:16px}
-.rule-list li{padding-block:8px; border-top:1px solid var(--line)}
-.link-ink{color:var(--black); font-weight:600; text-decoration:none}
+.rule-list li{padding-block:8px; border-top:1px solid var(--line-c)}
+.link-ink{color:var(--text-strong); font-weight:600; text-decoration:none}
 .link-ink:hover{text-decoration:underline}
-.link-gold{color:var(--gold-700); font-weight:600}
+.link-gold{color:var(--link); font-weight:600}
 
 /* ---------- google rating snapshot ---------- */
-.snapshot{background:var(--white); border:1px solid var(--line); border-radius:10px;
+.snapshot{background:var(--surface); border:1px solid var(--line-c); border-radius:10px;
   box-shadow:var(--shadow-md); overflow:hidden}
 .snapshot-head{display:flex; align-items:center; gap:12px; padding:16px 32px;
-  border-bottom:1px solid var(--line); background:var(--mist)}
-.snapshot-head .t-eyebrow{color:var(--slate)}
-.snapshot-head svg{width:20px; height:20px; color:var(--gold-700)}
+  border-bottom:1px solid var(--line-c); background:var(--surface-head)}
+.snapshot-head .t-eyebrow{color:var(--text-muted)}
+.snapshot-head svg{width:20px; height:20px; color:var(--link)}
 .snapshot-body{display:grid; grid-template-columns:repeat(3,1fr); gap:32px; padding:32px}
 .snap-cell{text-align:center}
 .snap-n{font-family:var(--display); font-size:2.441rem; line-height:1.12;
-  letter-spacing:-.015em; color:var(--black)}
-.snap-l{font-size:.875rem; color:var(--slate); margin-top:8px}
-.snapshot-foot{padding:24px 32px; border-top:1px solid var(--line); display:flex;
+  letter-spacing:-.015em; color:var(--text-strong)}
+.snap-l{font-size:.875rem; color:var(--text-muted); margin-top:8px}
+.snapshot-foot{padding:24px 32px; border-top:1px solid var(--line-c); display:flex;
   flex-wrap:wrap; gap:16px; align-items:center}
 /* stacked variant beside the quote */
 .snapshot-stack .snapshot-body{grid-template-columns:1fr; gap:0; padding-block:8px}
 .snapshot-stack .snap-cell{display:flex; align-items:baseline; gap:16px; text-align:left;
-  padding-block:16px; border-top:1px solid var(--line)}
+  padding-block:16px; border-top:1px solid var(--line-c)}
 .snapshot-stack .snap-cell:first-child{border-top:0}
 .snapshot-stack .snap-l{margin:0}
 .snapshot-stack .stars{align-self:center}
@@ -302,7 +360,7 @@ ul,ol{margin:0; padding:0; list-style:none}
 .quote{position:relative; padding-top:56px}
 .quote-mark{position:absolute; top:-16px; left:-4px; font-family:var(--display); font-size:7.5rem;
   line-height:1; color:var(--gold); pointer-events:none; user-select:none}
-.quote-text{margin:0; font-size:1.563rem; line-height:1.4; font-weight:500; color:var(--black);
+.quote-text{margin:0; font-size:1.563rem; line-height:1.4; font-weight:500; color:var(--text-strong);
   text-wrap:pretty}
 .quote-by{margin-top:24px; display:flex; align-items:center; gap:12px; flex-wrap:wrap}
 @media (max-width:960px){ .quote-grid{grid-template-columns:1fr} }
@@ -310,19 +368,19 @@ ul,ol{margin:0; padding:0; list-style:none}
 
 /* stars — filled for ratings (a data display, not an interface icon) */
 .stars{display:inline-flex; gap:4px; align-items:center}
-.stars svg{width:16px; height:16px; fill:var(--gold-600); stroke:none}
+.stars svg{width:16px; height:16px; fill:var(--star); stroke:none}
 .stars.on-dark svg{fill:var(--gold-300)}
 .stars-lg svg{width:20px; height:20px}
 
 /* ---------- reviews ---------- */
-.review{background:var(--white); border:1px solid var(--line); border-radius:10px; padding:24px;
+.review{background:var(--surface); border:1px solid var(--line-c); border-radius:10px; padding:24px;
   box-shadow:var(--shadow-sm); display:flex; flex-direction:column; gap:12px}
 .review-top{display:flex; align-items:center; gap:12px}
 .avatar{width:40px; height:40px; border-radius:9999px; background:var(--black); color:var(--gold);
   display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.875rem; flex:none}
-.review-name{font-weight:600; font-size:.875rem; color:var(--ink)}
-.review-date{font-size:.75rem; color:var(--slate)}
-.review-body{color:var(--slate); font-size:.875rem; line-height:1.6}
+.review-name{font-weight:600; font-size:.875rem; color:var(--text-strong)}
+.review-date{font-size:.75rem; color:var(--text-muted)}
+.review-body{color:var(--text); font-size:.875rem; line-height:1.6}
 
 /* placeholder notice */
 .notice{background:var(--gold-50); border:1px solid var(--gold-100);
@@ -349,7 +407,7 @@ ul,ol{margin:0; padding:0; list-style:none}
 
 /* ---------- stats ---------- */
 .stat-n{font-family:var(--display); font-size:clamp(3.05rem,6vw,4.768rem); line-height:1;
-  letter-spacing:-.02em; color:var(--black)}
+  letter-spacing:-.02em; color:var(--text-strong)}
 .dark .stat-n{color:var(--white)}
 /* a word rather than a figure — steps down so it fits the same column the
    numbers sit in, and stays under them in weight so the row still reads as data.
@@ -366,40 +424,40 @@ ul,ol{margin:0; padding:0; list-style:none}
 /* ---------- tables ---------- */
 .tbl{width:100%; border-collapse:collapse}
 .tbl th{text-align:left; font-size:.75rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
-  color:var(--slate); padding:0 16px 12px; border-bottom:1px solid var(--line)}
-.tbl td{padding:12px 16px; border-bottom:1px solid var(--line); font-size:.875rem}
+  color:var(--text-muted); padding:0 16px 12px; border-bottom:1px solid var(--line-c)}
+.tbl td{padding:12px 16px; border-bottom:1px solid var(--line-c); font-size:.875rem}
 .tbl tr:last-child td{border-bottom:0}
-.tbl tbody tr:nth-child(odd){background:var(--black-50)}
+.tbl tbody tr:nth-child(odd){background:var(--row)}
 .tbl-wrap{padding:24px 8px; overflow-x:auto}
 
 /* service area: table + map */
 .area-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:48px; align-items:start}
 .map-card{padding:0; overflow:hidden}
 .map-card img{width:100%; height:100%; object-fit:cover; aspect-ratio:3/2}
-.map-card figcaption{padding:16px 24px; border-top:1px solid var(--line); font-size:.875rem; color:var(--slate)}
+.map-card figcaption{padding:16px 24px; border-top:1px solid var(--line-c); font-size:.875rem; color:var(--text-muted)}
 @media (max-width:960px){ .area-grid{grid-template-columns:1fr} }
 
 /* ---------- town chips ---------- */
 .chips{display:flex; flex-wrap:wrap; gap:8px; align-content:start}
-.chip{font-size:.875rem; font-weight:500; color:var(--black); background:var(--black-50);
-  border:1px solid var(--line); border-radius:4px; padding:8px 12px}
+.chip{font-size:.875rem; font-weight:500; color:var(--text-strong); background:var(--tint);
+  border:1px solid var(--line-c); border-radius:4px; padding:8px 12px}
 .chips-dark .chip{background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.15); color:var(--black-200)}
 
 /* ---------- FAQ ---------- */
-.faq{border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--white)}
-.faq details{border-top:1px solid var(--line)}
+.faq{border:1px solid var(--line-c); border-radius:10px; overflow:hidden; background:var(--surface)}
+.faq details{border-top:1px solid var(--line-c)}
 .faq details:first-child{border-top:0}
-.faq summary{cursor:pointer; padding:24px; font-weight:600; font-size:1rem; color:var(--black);
+.faq summary{cursor:pointer; padding:24px; font-weight:600; font-size:1rem; color:var(--text-strong);
   display:flex; align-items:center; gap:12px; list-style:none;
   transition:background var(--ease) 200ms}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary:hover{background:var(--mist)}
+.faq summary:hover{background:var(--tint)}
 .faq summary:focus-visible{outline:0; box-shadow:var(--focus)}
 .faq summary::after{content:""; margin-left:auto; width:10px; height:10px; flex:none;
-  border-right:2px solid var(--slate); border-bottom:2px solid var(--slate);
+  border-right:2px solid var(--text-muted); border-bottom:2px solid var(--text-muted);
   transform:rotate(45deg); transition:transform var(--ease) 200ms}
 .faq details[open] summary::after{transform:rotate(-135deg)}
-.faq .faq-body{padding:0 24px 24px; color:var(--slate); font-size:.875rem; line-height:1.6}
+.faq .faq-body{padding:0 24px 24px; color:var(--text); font-size:.875rem; line-height:1.6}
 
 /* ---------- contact layout ---------- */
 .contact-grid{display:grid; gap:48px; grid-template-columns:1fr; align-items:start}
@@ -410,29 +468,29 @@ ul,ol{margin:0; padding:0; list-style:none}
 
 /* ---------- forms ---------- */
 .field{display:block; margin-bottom:24px}
-.label{display:block; font-size:.875rem; font-weight:600; color:var(--black); margin-bottom:8px}
-.input,.textarea,.select{width:100%; font-family:inherit; font-size:1rem; color:var(--ink);
-  background:var(--mist); border:2px solid var(--line); border-radius:4px; padding:14px 16px;
+.label{display:block; font-size:.875rem; font-weight:600; color:var(--text-strong); margin-bottom:8px}
+.input,.textarea,.select{width:100%; font-family:inherit; font-size:1rem; color:var(--text-strong);
+  background:var(--field); border:2px solid var(--field-line); border-radius:4px; padding:14px 16px;
   transition:border-color var(--ease) 200ms, box-shadow var(--ease) 200ms, background var(--ease) 200ms}
-.input:hover,.textarea:hover,.select:hover{border-color:var(--black-400)}
+.input:hover,.textarea:hover,.select:hover{border-color:var(--line-strong)}
 .input:focus-visible,.textarea:focus-visible,.select:focus-visible{
-  outline:0; background:var(--white); border-color:var(--black); box-shadow:var(--focus)}
+  outline:0; background:var(--field-focus); border-color:var(--text-strong); box-shadow:var(--focus)}
 .textarea{min-height:128px; resize:vertical; line-height:1.6}
-.hint{font-size:.75rem; color:var(--slate); margin-top:8px}
+.hint{font-size:.75rem; color:var(--text-muted); margin-top:8px}
 
 /* honeypot — off-screen for bots, invisible and unreachable for people */
 .hp{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden}
 
 .form-status{margin-top:16px; padding:12px 16px; border-radius:4px; font-size:.875rem;
-  border-left:4px solid var(--slate); background:var(--mist); color:var(--ink)}
-.form-status.is-ok{border-left-color:var(--success); background:var(--black-50)}
-.form-status.is-err{border-left-color:var(--danger); background:var(--red-50)}
+  border-left:4px solid var(--slate); background:var(--tint); color:var(--text-strong)}
+.form-status.is-ok{border-left-color:var(--success)}
+.form-status.is-err{border-left-color:var(--danger); background:var(--red-50); color:var(--ink)}
 .form-status.is-pending{border-left-color:var(--info)}
 
 /* ---------- CTA band ---------- */
 .band{background:var(--black); color:var(--white)}
 .band p{color:var(--black-200)}
-.band-tel{display:inline-block; font-family:var(--display); font-size:clamp(2.441rem,6vw,4.768rem);
+.band-tel{display:inline-block; font-family:var(--display); font-size:clamp(2.441rem,4.4vw,4rem);
   line-height:1; letter-spacing:-.02em; color:var(--white); text-decoration:none;
   font-variant-numeric:tabular-nums; white-space:nowrap; transition:color var(--ease) 200ms}
 .band-tel:hover{color:var(--gold-300)}
@@ -478,7 +536,7 @@ ul,ol{margin:0; padding:0; list-style:none}
   padding:12px 24px; border-radius:6px; font-weight:600}
 .mt-3{margin-top:12px} .mt-4{margin-top:16px} .mt-6{margin-top:24px}
 .mt-8{margin-top:32px} .mt-12{margin-top:48px}
-.muted{color:var(--slate)}
+.muted{color:var(--text-muted)}
 .on-dark-muted{color:var(--black-200)}
 
 /* ---------- service-area links (v3.1, added with the town pages) ----------
@@ -487,10 +545,10 @@ ul,ol{margin:0; padding:0; list-style:none}
    reachable only from sitemap.xml, which is not a crawl path worth relying on.
    Core gold is 2.06:1 on white and must never be link text, so the light
    surface uses gold-700 (7.30:1) and the dark chips use gold-300 (12.31:1). */
-.tbl a{color:var(--gold-700); text-decoration:none; font-weight:600}
+.tbl a{color:var(--link); text-decoration:none; font-weight:600}
 .tbl a:hover{text-decoration:underline}
 .tbl a:focus-visible{outline:0; box-shadow:var(--focus); border-radius:2px}
-.chip-link{color:var(--gold-700); text-decoration:none; transition:border-color var(--ease) 200ms}
+.chip-link{color:var(--link); text-decoration:none; transition:border-color var(--ease) 200ms}
 .chips-dark .chip-link{color:var(--gold-300)}
 .chip-link:hover{text-decoration:underline; border-color:var(--gold-600)}
 .chip-link:focus-visible{outline:0; box-shadow:var(--focus); border-radius:4px}
@@ -504,3 +562,14 @@ ul,ol{margin:0; padding:0; list-style:none}
 .card-dark .rule-list li{border-color:var(--black-600)}
 .card-dark .muted{color:var(--black-200)}
 figure{margin:0}
+
+/* ---------- photo bands (Nov 2026) ----------
+   The stats band and the process band carry a darkened photo instead of flat black:
+   the van behind the stats, the panel shot behind the process steps. 93-82% black
+   keeps white type well above AA. Photo slots — swap when job-site shots arrive. */
+.stats-band{background:linear-gradient(90deg, rgba(11,11,12,.93), rgba(11,11,12,.82)),
+  url(mills-van.jpg) center 60%/cover var(--black)}
+.process-band{background:linear-gradient(90deg, rgba(11,11,12,.93), rgba(11,11,12,.84)),
+  url(crew-panel.jpg) center/cover var(--black)}
+/* black bands sit on graphite, so they need their own edge */
+.band{border-top:1px solid var(--black-600)}

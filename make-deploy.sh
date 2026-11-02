@@ -1,9 +1,25 @@
 #!/bin/sh
-# Assembles the publishable site into deploy/ — drag that folder into Cloudflare Pages.
+# Assembles the publishable site into deploy/ for Cloudflare Pages.
 # Everything not listed here (brand_assets, tools, _archive, growth, screenshots)
 # stays private.
+#
+#   ./make-deploy.sh            build deploy/ only
+#   ./make-deploy.sh --deploy   build, then upload to the mills-electric Pages project
+#                               (staging: https://mills-electric.pages.dev)
+#
+# Deploys are a direct upload, never a Git hook (Isidore SITES.md rule 2), so pushing
+# to GitHub never changes the live site by itself.
 set -e
 cd "$(dirname "$0")"
+
+case "${1:-}" in
+  ""|--deploy) ;;
+  *) echo "usage: ./make-deploy.sh [--deploy]" >&2; exit 2 ;;
+esac
+
+# --- regenerate the town pages from their generator ---------------------------
+# tools/make-town-pages.py owns their HTML, so a stale page can never ship.
+python3 tools/make-town-pages.py >/dev/null
 
 # --- clean the build dir without rm -rf ---------------------------------------
 if [ -e deploy ] && [ ! -d deploy ]; then
@@ -55,3 +71,14 @@ fi
 
 echo "deploy/ ready — $(find deploy -type f | wc -l | tr -d ' ') files, $(du -sh deploy | cut -f1), ${pages} pages"
 find deploy -type f | sed 's|^deploy/|  |' | sort
+
+# --- optional upload to Cloudflare Pages ---------------------------------------
+if [ "${1:-}" = "--deploy" ]; then
+  if ! command -v npx >/dev/null 2>&1; then
+    # Node lives under nvm on this Mac and isn't on the default PATH.
+    for d in "$HOME"/.nvm/versions/node/*/bin; do [ -x "$d/npx" ] && PATH="$d:$PATH"; done
+  fi
+  command -v npx >/dev/null 2>&1 || { echo "deploy: npx not found; install Node first" >&2; exit 1; }
+  CLOUDFLARE_ACCOUNT_ID=1bc1f76c5970d9147a37c9952abf6141 \
+    npx --yes wrangler pages deploy deploy --project-name mills-electric --branch main
+fi
