@@ -415,34 +415,46 @@ def masthead():
       <a class="navlink" href="about.html">About</a>
       <a class="navlink" href="reviews.html">Reviews</a>
       <a class="navlink" href="contact.html">Contact</a>
-      <a class="btn btn-ondark btn-sm" href="tel:+15085862955">{PHONE_SVG}(508)-586-2955</a>
+      <a class="btn btn-primary btn-sm" href="tel:+15085862955">{PHONE_SVG}(508)-586-2955</a>
     </nav>
   </div>
 </header>"""
+
+
+# The trust bar replaces the old .facts chips. Same four strings as index.html.
+def trust():
+    return """<div class="trust">
+  <div class="wrap trust-in">
+    <div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span><span>MA Master Electrician #A-12245</span></div>
+    <div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span><span>24/7 emergency</span></div>
+    <div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/></svg></span><span>Free estimates</span></div>
+    <div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span>5.0 on Google</span><span class="stars" role="img" aria-label="5 out of 5 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span></div>
+  </div>
+</div>"""
 
 
 def band_and_footer():
     svc = "\n".join(
         f'        <a href="services.html#{a}">{n}</a>' for a, n in SERVICE_LINKS)
     return f"""<section class="band section">
-  <div class="wrap grid auto-2 gap-12" style="align-items:center">
+  <div class="wrap grid auto-2 gap-12 items-center">
     <div>
       <h2 class="t-h2">Get a price<br>this week</h2>
       <p class="t-lead prose mt-6">Estimates are free and we do not charge a call-out fee to quote.
         Tell us what the problem is and we will tell you what it costs.</p>
     </div>
-    <div class="actions" style="margin-top:0">
-      <a class="btn btn-primary" href="tel:+15085862955">{PHONE_SVG}Call (508)-586-2955</a>
-      <a class="btn btn-ondark" href="contact.html">Request an estimate</a>
+    <div class="band-cta">
+      <a class="band-tel" href="tel:+15085862955">(508)-586-2955</a>
+      <a class="btn btn-primary" href="contact.html">Request an estimate</a>
     </div>
   </div>
 </section>
 <footer class="foot">
-  <div class="wrap" style="padding-block:64px">
-    <div class="grid gap-8" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+  <div class="wrap foot-in">
+    <div class="foot-grid">
       <div>
-        <img src="assets/logos/reversed-logo-on-black.png" alt="Mills Electric Inc" width="165" height="95" style="margin-bottom:24px">
-        <p class="t-small" style="color:var(--black-400); max-width:32ch">
+        <img class="foot-logo" src="assets/logos/reversed-logo-on-black.png" alt="Mills Electric Inc" width="165" height="95">
+        <p class="t-small foot-blurb">
           Electrical contractor serving Brockton and the South Shore.
         </p>
       </div>
@@ -459,20 +471,24 @@ def band_and_footer():
       </div>
       <div>
         <h4>Contact</h4>
-        <a href="tel:+15085862955" style="font-weight:600; color:var(--white)">(508)-586-2955</a>
+        <a class="foot-tel" href="tel:+15085862955">(508)-586-2955</a>
         <a href="mailto:Millselectricinc@gmail.com">Millselectricinc@gmail.com</a>
-        <p class="t-small" style="color:var(--black-400); margin-top:12px; line-height:1.5">
-          Mon–Fri 7am–5pm<br>Sat 7am–12pm<br><span style="font-size: 0.85em;">24/7 for emergencies</span>
+        <h4>Hours</h4>
+        <p class="t-small foot-meta">
+          Mon–Fri 7am–5pm<br>Sat 7am–12pm<br><small>24/7 for emergencies</small>
         </p>
       </div>
     </div>
-    <div style="margin-top:48px; padding-top:24px; border-top:1px solid rgba(255,255,255,.10);
-                display:flex; flex-wrap:wrap; gap:16px; align-items:center">
-      <p class="t-caption" style="color:var(--black-400)">&copy; 2026 Mills Electric Inc</p>
-      <p class="t-caption" style="color:var(--black-400); margin-left:auto">MA Master Electrician #A-12245</p>
+    <div class="foot-bottom">
+      <p class="t-caption">&copy; 2026 Mills Electric Inc</p>
+      <p class="t-caption right">MA Master Electrician #A-12245</p>
     </div>
   </div>
-</footer>"""
+</footer>
+<div class="callbar">
+  <a class="btn btn-primary" href="tel:+15085862955"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Call (508)-586-2955</a>
+  <a class="btn btn-ondark" href="contact.html">Get an estimate</a>
+</div>"""
 
 
 def jsonld(t):
@@ -546,16 +562,15 @@ def build(t, others):
         f'      <p class="muted mt-{"6" if i == 0 else "4"}">\n        {p}\n      </p>'
         for i, p in enumerate(t["stock"]))
     seen = "\n".join(
-        '        <li style="display:grid; grid-template-columns:auto 1fr; gap:12px; '
-        'padding-block:12px; border-top:1px solid var(--line)">\n'
+        '        <li>\n'
         f'          {CHECK_SVG}<span>{x}</span></li>'
         for x in t["seen"])
     reality = "\n".join(
         f'      <p class="prose muted mt-{"6" if i == 0 else "4"}">\n        {p}\n      </p>'
         for i, p in enumerate(t["reality"]))
     svc_cards = "\n".join(
-        f'''      <a class="card card-hover" href="services.html#{a}" style="text-decoration:none">
-        <h3 class="t-h4" style="color:var(--black)">{n}</h3>
+        f'''      <a class="card card-hover card-link" href="services.html#{a}">
+        <h3 class="t-h4">{n}</h3>
       </a>''' for a, n in SERVICE_LINKS)
     zips = "\n".join(
         f'            <span class="chip">{z}</span>' for z in t["zips"])
@@ -604,33 +619,31 @@ def build(t, others):
 <a class="skip" href="#main">Skip to content</a>
 {masthead()}
 <section class="pagehead">
-  <div class="wrap">
-    <p class="t-eyebrow crumb"><a href="index.html#area" style="color:inherit">Service area</a> &rsaquo; {t['name']}, MA</p>
+  <!-- photo slot: swap src when job-site photos arrive -->
+  <div class="pagehead-bg"><img src="assets/crew-panel.jpg" alt="" width="1280" height="852"></div>
+  <div class="wrap"><div class="pagehead-copy">
+    <p class="t-eyebrow crumb"><a href="index.html#area">Service area</a> &rsaquo; {t['name']}, MA</p>
     <h1 class="t-h1">{t['h1']}</h1>
     <p class="t-lead prose mt-6">{t['lead']}</p>
     <div class="actions">
       <a class="btn btn-primary" href="tel:+15085862955">{PHONE_SVG}Call (508)-586-2955</a>
       <a class="btn btn-ondark" href="contact.html">Request an estimate</a>
     </div>
-    <div class="facts">
-      <span class="fact">MA Master Electrician #A-12245</span>
-      <span class="fact">24/7 emergency</span>
-      <span class="fact">Free estimates</span>
-    </div>
-  </div>
+  </div></div>
 </section>
+{trust()}
 <main id="main">
 
 <section class="section">
-  <div class="wrap grid auto-2 gap-12" style="align-items:start">
+  <div class="wrap grid auto-2 gap-12 items-start">
     <div>
-      <h2 class="t-h3" style="color:var(--black)">{t['stock_h2']}</h2>
+      <h2 class="t-h3">{t['stock_h2']}</h2>
 {stock}
       <a class="btn btn-outline mt-8" href="services.html">See everything we do</a>
     </div>
     <div class="card">
       <p class="t-eyebrow muted">{t['seen_title']}</p>
-      <ul class="mt-6">
+      <ul class="check-list mt-6">
 {seen}
       </ul>
     </div>
@@ -639,17 +652,17 @@ def build(t, others):
 
 <section class="section mist">
   <div class="wrap">
-    <p class="t-eyebrow" style="color:var(--gold-700)">{t['name']} specifics</p>
-    <h2 class="t-h2 mt-3" style="color:var(--black)">{t['reality_h2']}</h2>
+    <p class="t-eyebrow">{t['name']} specifics</p>
+    <h2 class="t-h2 mt-3">{t['reality_h2']}</h2>
 {reality}
   </div>
 </section>
 
 <section class="section">
-  <div class="wrap grid auto-2 gap-12" style="align-items:start">
+  <div class="wrap grid auto-2 gap-12 items-start">
     <div>
-      <p class="t-eyebrow" style="color:var(--gold-700)">Getting to you</p>
-      <h2 class="t-h2 mt-3" style="color:var(--black)">Booking a<br>{t['name']} call</h2>
+      <p class="t-eyebrow">Getting to you</p>
+      <h2 class="t-h2 mt-3">Booking a<br>{t['name']} call</h2>
       <p class="prose muted mt-6">
         We work out of Brockton, so {t['name']} is a local run for us. The two windows
         below are the ones already published in our service-area table; the 3hr figure is
@@ -659,7 +672,7 @@ def build(t, others):
       <a class="btn btn-outline mt-8" href="contact.html">Request an estimate</a>
     </div>
     <div>
-      <div class="card" style="padding:24px 8px; overflow-x:auto">
+      <div class="card tbl-wrap">
         <table class="tbl">
           <thead><tr><th>Town</th><th>Standard call</th><th>Emergency</th></tr></thead>
           <tbody>
@@ -667,8 +680,8 @@ def build(t, others):
           </tbody>
         </table>
       </div>
-      <div class="grid gap-8 mt-8" style="grid-template-columns:repeat(2,1fr)">
-        <div>
+      <div class="grid gap-8 mt-8 two-up">
+        <div class="stat">
           <div class="stat-n">3hr</div>
           <p class="t-small muted mt-3">Median response on emergency calls</p>
         </div>
@@ -685,11 +698,11 @@ def build(t, others):
 
 <section class="section">
   <div class="wrap">
-    <p class="t-eyebrow" style="color:var(--gold-700)">What we do in {t['name']}</p>
-    <h2 class="t-h2 mt-3" style="color:var(--black)">All six, here<br>as anywhere</h2>
+    <p class="t-eyebrow">What we do in {t['name']}</p>
+    <h2 class="t-h2 mt-3">All six, here<br>as anywhere</h2>
     <p class="t-lead prose muted mt-6">
       The full detail on each one — what it covers and what it typically includes — is on
-      the <a href="services.html" style="color:var(--gold-700)">services page</a>.
+      the <a href="services.html" class="link-gold">services page</a>.
     </p>
     <div class="grid auto-3 gap-6 mt-12">
 {svc_cards}
@@ -699,14 +712,14 @@ def build(t, others):
 
 <section class="section mist">
   <div class="wrap">
-    <p class="t-eyebrow" style="color:var(--gold-700)">Nearby</p>
-    <h2 class="t-h2 mt-3" style="color:var(--black)">Other towns<br>we cover</h2>
+    <p class="t-eyebrow">Nearby</p>
+    <h2 class="t-h2 mt-3">Other towns<br>we cover</h2>
     <div class="chips mt-8">
 {nearby}
     </div>
     <p class="muted mt-8">
       The full list, including East Bridgewater, West Bridgewater and Rockland, is on the
-      <a href="index.html#area" style="color:var(--gold-700)">home page</a>. If your town is not
+      <a href="index.html#area" class="link-gold">home page</a>. If your town is not
       on it, call and ask — we take work outside the list regularly.
     </p>
   </div>

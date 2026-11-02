@@ -43,7 +43,8 @@ contradictory claims on the same site.
 
 ## Key Assets
 - **Hero image**: assets/mills-van.jpg (the lettered black van, from Charlie, Oct 2026). Also the og/twitter/JSON-LD share image on all 14 pages. `crew-panel.jpg` is kept but unused.
-- **Service area map**: assets/mills-electric-map.png (Brockton location)
+- **Service area map**: assets/mills-electric-map.jpg (1200×807, Brockton location). Shown on
+  index.html beside the service-area table and on contact.html. The 1.1 MB PNG was retired Nov 2026.
 - **Brand logos (v3.1, current)**: brand_assets/logos/ — 10 PNGs:
   `me-primary`, `me-horizontal`, `me-mark`, `me-badge-circle`, `me-badge-hex`,
   each with a `-reversed` counterpart.
@@ -101,7 +102,9 @@ yard sign, or embroidery digitizing. To regenerate: brand_assets/logos/_source/b
    - (Rating only, no text visible)
 
 ## Pages
-- **index.html** — Home page with hero, services overview, ratings snapshot
+- **index.html** — Home page. Section order (Nov 2026 layout): full-bleed van hero with the
+  12° red cut → trust bar → services (2 featured dark cards + 4) → dark stats band → quote-led
+  reviews block (Jose Oliveira) → process timeline → service area (table + map) → FAQ → CTA band
 - **services.html** — Detailed service offerings
 - **about.html** — Company background and credentials
 - **reviews.html** — Full review list and Google rating
@@ -161,12 +164,22 @@ anywhere in the site any more:
 - `--volt*` → `--gold*` (`--gold`, `-700`, `-600`, `-300`, `-100`, `-50`)
 - classes: `.btn-onnavy` → `.btn-ondark`, `.on-navy-muted` → `.on-dark-muted`,
   `.past-navy` → `.past-dark` (the last one is also in `assets/site.js` — keep them in sync)
-- **Pages carry inline `var(--...)` refs too.** ~330 of them across the 14 files
-  (`style="color:var(--black)"` and similar). A rename that only touches site.css will
-  silently break those — they fall back to inherited colour, not an error.
+- **No inline styles on any page** since the Nov 2026 layout pass. Headings default to black
+  via CSS and go white inside `.dark .hero .pagehead .band .card-dark`; eyebrows carry the
+  gold rule and colour by default. Keep it that way — new styling goes in site.css as a class.
 - Two focus rings now: `--focus` (gold-600, for light surfaces) and `--focus-dark`
   (gold-300, used by `.logo-link`, `.navlink`, `.btn-ondark`, `.foot a`). Core gold is
   only 2.06:1 on white and fails as a lone non-text indicator.
+
+### Layout classes added Nov 2026 (all in assets/site.css)
+`.hero-bg/.hero-copy` (full-bleed photo hero), `.pagehead-bg/.pagehead-copy` (inner pages,
+crew-panel.jpg behind a 78% black overlay — a photo slot), `.trust*` (licence / 24-7 / free
+estimates / 5.0 bar), `.svc-grid .card-featured .card-dark`, `.stats-band .stats-grid .stat`,
+`.timeline`, `.area-grid .map-card .tbl-wrap`, `.quote* .snapshot-stack`, `.band-tel` (giant
+phone number), `.callbar` (sticky Call / Estimate bar ≤600px; the masthead phone button hides
+there), `.foot-grid` etc., `.check-list .rule-list .link-gold .link-ink .chips-dark`.
+Masthead phone button is `btn-primary` (gold) — allowed, the masthead is its own section.
+Type scale stepped up on the 1.25 ratio: display 4.768rem, h2 3.05rem, pagehead h1 3.815rem.
 
 ### Logo sizing gotcha
 Every logo `<img>` carries hardcoded `width`/`height` — **currently 165&times;95** (28 tags,
@@ -192,7 +205,9 @@ badge-circle **1.07:1** (nearly square), badge-hex **1.42:1**.
   the hero/pagehead clears the header (`.masthead.past-dark`, toggled by assets/site.js).
   Deliberate — red on black is only 4.19:1, and it keeps red inside its 2% budget.
 - On the live site red appears in exactly three places: the masthead edge, the hero's
-  sheared edge, and the contact form's error state. There is no red button.
+  12° sheared bottom edge (the cut is `clip-path` on `.hero`, the 4px line is `.hero::after`),
+  and the contact form's error state. There is no red button. The hero has **no gold border**
+  so the red line never meets gold; it meets the white trust bar.
 
 ### Gold rules (v3.1)
 - Gold is **flat on screen** — no gradient, sheen or bevel. The brushed gradient
