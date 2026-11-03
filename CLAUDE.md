@@ -55,9 +55,11 @@ contradictory claims on the same site.
 - **Footer photo**: assets/footer-jobsite.jpg (1448×1086), behind the smoked-glass footer on all
   14 pages (`.foot-bg`, a photo slot; the `<img>` carries width/height 1448×1086). Since Nov 3 2026
   it is **"Mills Truck 2"** (Logan's pick): an AI shot of the van side-on in front of a shingled
-  house, sunny. Close to the hero, knowingly. Its licence line was garbled ("MASTER LIC. A-13805")
-  and showed beside the glass at ≥1920px, so it was **painted out**; the original and the retouch
-  are in `brand_assets/photos/_source/footer-jobsite/` (mills-truck-2*.png). Footer text worst
+  house, sunny. Close to the hero, knowingly. Two AI lettering faults are retouched by
+  `brand_assets/photos/_source/footer-jobsite/retouch_footer_photo.py` (re-run it, don't hand-edit):
+  the garbled licence line ("MASTER LIC. A-13805") is **painted out**, and the squiggle after
+  "Electric" is redrawn as **"Inc." in stacked letters**, as on the real van. Original and
+  retouch: mills-truck-2*.png in the same folder. Footer text worst
   case 5.16:1 at 1440px. The other 12 Higgsfield concepts and 2 non-AI options are staged there too.
   On any swap: check for garbled lettering (sides of the glass show the photo clear on wide
   screens) and re-check footer contrast (black-400 ≥ 5.14:1).
