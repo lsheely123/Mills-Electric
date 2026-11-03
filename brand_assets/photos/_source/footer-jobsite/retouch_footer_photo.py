@@ -18,6 +18,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.join(HERE, "../../../..")
 FILL = (250, 228, 181)       # the lettering's cream gold, sampled from "Electric"
 SS = 8                       # supersample for the new letters
+# The photo sees the van side at an angle, so its upright strokes lean back: the tops sit left
+# of the bottoms. Measured on the t, i and E stems of "Electric": 0.144, 0.112, 0.153 px/px.
+LEAN = 0.135
 
 
 def lettering_mask(box):
@@ -52,6 +55,9 @@ def stacked_inc(a, cx, top, bottom):
     for text, base in (("I", cap), ("n", cap + gap + xh), ("c.", h)):
         d.text((w / 2, base), text, font=font, fill=255, anchor="ms",
                stroke_width=SS // 3, stroke_fill=255)   # a touch heavier, like the van
+    # shear to match: each row shifts right in proportion to how far down it is, about the middle
+    layer = layer.transform(layer.size, Image.AFFINE, (1, -LEAN, LEAN * h / 2, 0, 1, 0),
+                            resample=Image.BICUBIC)
     layer = layer.resize((w // SS, (bottom - top)), Image.LANCZOS).filter(ImageFilter.GaussianBlur(0.35))
     alpha = np.asarray(layer, np.float32)[..., None] / 255
     x0 = round(cx - w / SS / 2)
