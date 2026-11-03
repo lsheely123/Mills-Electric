@@ -11,7 +11,7 @@ housing-stock and electrical-reality text in TOWNS below. These are not doorway
 clones — if you find yourself templating the prose, stop.
 
 Ground rules baked in, per CLAUDE.md and the brief:
-  - logo <img> is 165x95, twice per page, hardcoded. Do not change.
+  - logo <img> sizes are hardcoded: masthead mark 96x39 (me-mark-gold.png), footer 165x95.
   - v3.1 palette only. Gold buttons take BLACK labels. No red on gold.
     These pages introduce no new colour; they reuse existing classes.
   - No claim that is not already on the site. The only numbers used are the
@@ -406,8 +406,9 @@ def jstr(s):
 def masthead():
     return f"""<header class="masthead">
   <div class="wrap masthead-in">
-    <a class="logo-link" href="index.html" aria-label="Mills Electric Inc home">
-      <img src="assets/logos/reversed-logo-on-black.png" alt="Mills Electric Inc" width="165" height="95">
+    <a class="logo-link brand" href="index.html" aria-label="Mills Electric Inc home">
+      <img src="assets/logos/me-mark-gold.png" alt="" width="96" height="39">
+      <span class="brand-txt"><span class="brand-name">Mills Electric</span><span class="brand-sub">Inc · Since 1979</span></span>
     </a>
     <nav class="nav" aria-label="Main">
       <div class="navgroup">
@@ -452,6 +453,7 @@ def band_and_footer():
   </div>
 </section>
 <footer class="foot">
+  <img class="foot-bg" src="assets/footer-jobsite.jpg" alt="" width="1448" height="1086" loading="lazy" decoding="async">
   <div class="wrap foot-in">
     <div class="foot-grid">
       <div>
@@ -590,9 +592,9 @@ def build(t, others):
 <title>{esc(t['title'])}</title>
 <meta name="description" content="{esc(t['desc'])}">
 <meta name="theme-color" content="#0B0B0C">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/logos/favicon-32.png?v=3.1">
-<link rel="icon" type="image/png" sizes="192x192" href="assets/logos/favicon-192.png?v=3.1">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/logos/favicon-180.png?v=3.1">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/logos/favicon-32.png?v=3.2">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/logos/favicon-192.png?v=3.2">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/logos/favicon-180.png?v=3.2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap">

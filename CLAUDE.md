@@ -30,7 +30,8 @@ contradictory claims on the same site.
   down in size and pins its line-height to `.stat-n`'s box to keep captions aligned.
 - **47 years is load-bearing.** It sets the 1979 founding date, which also appears in
   about.html's body copy, its `<h2>` ("Forty-seven years on the South Shore") and its
-  meta description. Bump the 47 and all four have to move together.
+  meta description. Bump the 47 and all four have to move together. 1979 is also in every
+  page's masthead ("Inc · Since 1979"), which doesn't change as the years tick over.
 - Retired in Sep 2026: "18 / Years in business", "2,400+ / Permits pulled and closed
   out", "4hr / Median emergency response", "3yr / Workmanship warranty".
 
@@ -46,6 +47,15 @@ contradictory claims on the same site.
 
 ## Key Assets
 - **Hero image**: assets/mills-van.jpg (the lettered black van, from Charlie, Oct 2026). Also the og/twitter/JSON-LD share image on all 14 pages (og:image 1672×941, alt describes the van). `crew-panel.jpg` is the inner-page pagehead photo and the process-band photo.
+- **Footer photo**: assets/footer-jobsite.jpg (1448×1086), behind the smoked-glass footer on all
+  14 pages (`.foot-bg`, a photo slot; the `<img>` carries width/height 1448×1086). Since Nov 3 2026
+  it is **"Mills Truck 2"** (Logan's pick): an AI shot of the van side-on in front of a shingled
+  house, sunny. Close to the hero, knowingly. Its licence line was garbled ("MASTER LIC. A-13805")
+  and showed beside the glass at ≥1920px, so it was **painted out**; the original and the retouch
+  are in `brand_assets/photos/_source/footer-jobsite/` (mills-truck-2*.png). Footer text worst
+  case 5.16:1 at 1440px. The other 12 Higgsfield concepts and 2 non-AI options are staged there too.
+  On any swap: check for garbled lettering (sides of the glass show the photo clear on wide
+  screens) and re-check footer contrast (black-400 ≥ 5.14:1).
 - **Service area map**: assets/mills-electric-map.jpg (1200×807, Brockton location). Shown on
   index.html beside the service-area table and on contact.html. The 1.1 MB PNG was retired Nov 2026.
 - **Brand logos (v3.1, current)**: brand_assets/logos/ — 10 PNGs:
@@ -80,11 +90,28 @@ web and ordinary print; **still get vector (SVG/AI/EPS) from the designer** for 
 yard sign, or embroidery digitizing. To regenerate: brand_assets/logos/_source/board-3.1.png.
 **Ask the designer for SVG/AI/EPS.**
 
-- **Site logos**: assets/logos/ — **v3.1**:
-  - `reversed-logo-on-black.png` — 660×382, transparent RGBA (4× the 165px display size),
-    exported from `brand_assets/logos/me-primary-reversed.png`. Masthead + footer, all 6 pages.
+- **Site logos**: assets/logos/:
+  - **Masthead logo (Nov 2026, "option B", Logan's pick):** `me-mark-gold.png` (the ME mark,
+    engine-turned gold, transparent, 384×156 = 4× the 96×39 display) beside the name as live
+    text: `.brand` > img + `.brand-txt` > `.brand-name` "Mills Electric" (Archivo Black, white)
+    and `.brand-sub` "Inc · Since 1979" (gold). One logo system across header, footer and
+    favicons. Chosen over a one-line wordmark, a modernised van lettering and a heritage lockup.
+  - **Van lettering (source art only, no longer on the site):** the rebuild of the van's side
+    lettering was briefly the masthead logo (Nov 2026) and was retired as dated. Everything is
+    in `brand_assets/logos/_source/van-lettering/`: `rebuild_van_lettering.py` (needs shapely)
+    writes the full lettering, the name-only version, flat vector SVGs and `van-name-web.png`.
+    It also supplies the engine-turned texture `engine_turn_logos.py` uses. The font is a
+    stand-in (Helvetica Bold stretched to the van's measured line widths).
+  - `reversed-logo-on-black.png` — the v3.1 lockup, 660×382, transparent RGBA (4× the 165px
+    display size), from `brand_assets/logos/me-primary-reversed.png`. The **footer** logo on
+    all 14 pages, and the JSON-LD `logo`.
+  - **Since Nov 2026 the footer lockup and all four favicons carry the van's engine-turned
+    gold** (Logan: "all the other logos… the radial brushed gold"). Only the gold was retextured;
+    white, red and alpha are untouched. Made by `brand_assets/logos/_source/van-lettering/
+    engine_turn_logos.py` from the flat masters, which stay flat and canonical. Re-run it, don't
+    hand-export, or the gold goes back to flat. Favicon links are `?v=3.2` (bump on any change).
   - `favicon-32/180/192/512.png` — the v3.1 mark centred on #0B0B0C, from
-    `brand_assets/logos/me-mark-reversed.png`. 32/180/192 are linked from every page
+    `brand_assets/logos/me-mark-reversed.png`, gold engine-turned (above). 32/180/192 are linked from every page
     `<head>`; 512 still has no manifest pointing at it.
   - The old `reversed-logo-on-navy.png` is deleted (recoverable from git history).
   - **Don't put designer source boards in assets/** — `make-deploy.sh` copies all of
@@ -207,13 +234,18 @@ Masthead phone button is `btn-primary` (gold) — allowed, the masthead is its o
   it (CSS fallback 147px). Pages with neither get `body` padding instead.
 - The five links sit in a see-through glass bar, `.navgroup` (28% black, blur 10px), in
   all 14 pages and in `masthead()` in tools/make-town-pages.py.
+- Logo + nav + phone button need ~1060px in one row. **≤1060px the nav drops to its own row**
+  under the logo; 1061–1180px everything tightens a step; ≤600px the logo shrinks (mark 72px).
+  `.brand` never shrinks (`flex-shrink:0`), so if anything is added to the masthead, re-check 1061px.
 Type scale stepped up on the 1.25 ratio: display 4.768rem, h2 3.05rem, pagehead h1 3.815rem.
 
 ### Logo sizing gotcha
-Every logo `<img>` carries hardcoded `width`/`height` — **currently 165&times;95** (28 tags,
-2 per page across all 14). Changing the artwork without updating those attributes squashes the logo; this
-has bitten once already. 165px also clears the brand book's 160px digital minimum, so don't
-shrink it below that.
+Every logo `<img>` carries hardcoded `width`/`height` (28 tags, 2 per page across all 14):
+the **masthead mark is 96&times;39** (`me-mark-gold.png`, also `.brand img{width:96px}` in
+site.css) and the **footer is 165&times;95** (`reversed-logo-on-black.png`). Town pages get
+both from `masthead()` / the footer in tools/make-town-pages.py. Changing the artwork without
+updating those attributes squashes the logo; this has bitten once already. 165px also clears
+the brand book's 160px digital minimum, so don't shrink the lockup below that.
 
 Ratio history: v1 1.56:1 · v2.0 1.96:1 (165&times;84) · v3.0 2.10:1 · **v3.1 1.73:1
 (165&times;95)**.
@@ -236,10 +268,13 @@ badge-circle **1.07:1** (nearly square), badge-hex **1.42:1**.
   12° sheared bottom edge (the cut is `clip-path` on `.hero`, the 4px line is `.hero::after`),
   and the contact form's error state. There is no red button. The hero has **no gold border**
   so the red line never meets gold; it meets the graphite page and the black trust bar.
+  (The retired van-lettering logo put a red-800 shadow against gold, 5.37:1. Gone from the site.)
 
 ### Gold rules (v3.1)
 - Gold is **flat on screen** — no gradient, sheen or bevel. The brushed gradient
-  (`--me-gold-brushed`) is for print, vinyl and signage only.
+  (`--me-gold-brushed`) is for print, vinyl and signage only. **Exception:** the logo artwork
+  (masthead mark, footer lockup, favicons) carries the van's engine-turned gold leaf on
+  purpose. It is artwork, not a UI colour; CSS gold stays flat.
 - Gold buttons take **black** labels (**9.53:1**). Never white on gold, never gold on white
   (both **2.06:1**); gold-toned text on white uses `gold-700` `#6E5212` (7.30:1).
 - Focus rings are `gold-600` `#B98A1E` on light (3.13:1) and `gold-300` `#EAC97B` on dark

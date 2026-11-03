@@ -174,8 +174,35 @@ body:not(:has(.hero, .pagehead)){padding-top:var(--mast-h,147px)}
    purpose — red must never carry the same weight as the gold accent. */
 .masthead.past-dark{border-bottom-color:var(--red)}
 .masthead-in{display:flex; align-items:center; gap:32px; padding-block:24px}
-.masthead img{width:165px; height:auto}  /* brand book: 160px digital minimum for the lockup */
+/* Masthead logo: the gold ME mark (me-mark-gold.png, the same mark as the footer lockup
+   and the favicons) with the name as live text beside it */
 .logo-link{display:block; border-radius:4px}
+.brand{display:flex; align-items:center; gap:14px; text-decoration:none; flex-shrink:0}
+.brand img{width:96px; height:auto}  /* keep in step with the img width/height (96x39) */
+.brand-txt{display:flex; flex-direction:column; gap:6px; padding-left:14px;
+  border-left:1px solid rgba(255,255,255,.22); text-shadow:0 1px 8px rgba(0,0,0,.55)}
+.brand-name{font-family:var(--display); font-size:1.5rem; line-height:1; text-transform:uppercase;
+  letter-spacing:.01em; color:var(--white); white-space:nowrap}
+.brand-sub{font-size:.6875rem; font-weight:700; line-height:1; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--gold); white-space:nowrap}
+/* 1061-1180px: logo, nav and phone button still share one row, so everything tightens a step */
+@media (min-width:1061px) and (max-width:1180px){
+  .masthead-in{gap:20px}
+  .brand{gap:10px}
+  .brand img{width:80px}
+  .brand-txt{padding-left:10px}
+  .brand-name{font-size:1.25rem}
+  .brand-sub{letter-spacing:.22em}
+  .navlink{padding-inline:11px}
+  .nav .btn{padding-inline:18px}
+}
+@media (max-width:600px){
+  .brand{gap:10px}
+  .brand img{width:72px}
+  .brand-txt{padding-left:10px; gap:5px}
+  .brand-name{font-size:1.25rem}
+  .brand-sub{font-size:.625rem; letter-spacing:.24em}
+}
 .logo-link:focus-visible{outline:0; box-shadow:var(--focus-dark)}
 .nav{display:flex; align-items:center; gap:16px; margin-left:auto}
 /* the five links sit in one see-through glass bar so they read over any photo */
@@ -193,7 +220,8 @@ body:not(:has(.hero, .pagehead)){padding-top:var(--mast-h,147px)}
 .navlink:focus-visible{outline:0; box-shadow:var(--focus-dark); border-radius:2px}
 .nav .btn{margin-left:8px; height:52px; padding-inline:24px; font-size:1rem; font-weight:700;
   box-shadow:0 8px 22px rgba(0,0,0,.45)}
-@media (max-width:960px){
+/* the nav drops to its own row below the logo once logo + nav + phone no longer fit */
+@media (max-width:1060px){
   .masthead-in{flex-wrap:wrap; gap:16px; padding-block:16px}
   .nav{width:100%; margin-left:0; flex-wrap:wrap; order:3; gap:16px}
   .nav .btn{margin-left:auto}
@@ -498,9 +526,34 @@ body:not(:has(.hero, .pagehead)){padding-top:var(--mast-h,147px)}
 .band-cta{display:flex; flex-direction:column; align-items:flex-start; gap:24px}
 @media (max-width:600px){ .band-tel{font-size:clamp(1.953rem,9vw,2.441rem)} }
 
-/* ---------- footer ---------- */
-.foot{background:var(--black-900); color:var(--black-400); border-top:4px solid var(--gold)}
-.foot-in{padding-block:64px}
+/* ---------- footer ----------
+   A photo surface (.foot-bg, assets/footer-jobsite.jpg — a slot, like the pagehead photo)
+   with the content on a panel of dark smoked glass: blurred, tinted and mottled so the
+   type stays legible over any photo. The photo shows clear above the panel. */
+.foot{position:relative; isolation:isolate; overflow:hidden; background:var(--black-900);
+  color:var(--black-400); border-top:4px solid var(--gold); padding-block:200px 48px}
+.foot-bg{position:absolute; inset:0; z-index:-2; width:100%; height:100%;
+  object-fit:cover; object-position:50% 45%}
+/* darken toward the bottom so the glass sits on deeper ground */
+.foot::before{content:""; position:absolute; inset:0; z-index:-1;
+  background:linear-gradient(180deg, rgba(0,0,0,.10) 0%, rgba(0,0,0,.35) 30%, rgba(0,0,0,.70) 100%)}
+.foot-in{position:relative; isolation:isolate; width:min(1200px, calc(100% - 32px));
+  padding:56px 48px 32px; border-radius:16px; background:rgba(11,11,12,.72);
+  -webkit-backdrop-filter:blur(18px) saturate(1.1); backdrop-filter:blur(18px) saturate(1.1);
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 30px 80px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.08)}
+/* the stain: drifting smoke and a fine grain, under the content */
+.foot-in::before{content:""; position:absolute; inset:0; z-index:-1; border-radius:inherit;
+  pointer-events:none;
+  background:
+    radial-gradient(55% 75% at 12% 18%, rgba(0,0,0,.38), transparent 70%),
+    radial-gradient(45% 65% at 88% 85%, rgba(0,0,0,.32), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='640'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.006' numOctaves='4' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.6 1.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)' opacity='.55'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
+/* no blur support: fall back to near-solid smoke so the type never sits on a sharp photo */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .foot-in{background:rgba(11,11,12,.92)}
+}
 .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:32px}
 .foot-logo{margin-bottom:24px}
 .foot-blurb{color:var(--black-400); max-width:32ch}
@@ -518,7 +571,11 @@ body:not(:has(.hero, .pagehead)){padding-top:var(--mast-h,147px)}
   display:flex; flex-wrap:wrap; gap:16px; align-items:center; color:var(--black-400)}
 .foot-bottom .right{margin-left:auto}
 @media (max-width:960px){ .foot-grid{grid-template-columns:1fr 1fr} }
-@media (max-width:600px){ .foot-grid{grid-template-columns:1fr} .foot-in{padding-block:48px} }
+@media (max-width:600px){
+  .foot{padding-block:140px 16px}
+  .foot-grid{grid-template-columns:1fr}
+  .foot-in{padding:40px 24px 24px}
+}
 
 /* ---------- sticky call bar (phones only, CSS only) ---------- */
 .callbar{display:none}
