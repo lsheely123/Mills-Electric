@@ -19,7 +19,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 DOMAIN = "https://REPLACE-DOMAIN"
 
 OG_IMG = f"{DOMAIN}/assets/mills-van.jpg"
-OG_IMG_W, OG_IMG_H = "1672", "941"
+OG_IMG_W, OG_IMG_H = "1448", "1086"
 OG_IMG_ALT = "The black Mills Electric work van, lettered in gold, parked outside a house in Brockton"
 
 BEGIN = "<!-- SEO-BLOCK:BEGIN (managed by tools/seo-head.py — edit there, not here) -->"

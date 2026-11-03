@@ -46,7 +46,12 @@ contradictory claims on the same site.
 - **5-star percentage**: 100%
 
 ## Key Assets
-- **Hero image**: assets/mills-van.jpg (the lettered black van, from Charlie, Oct 2026). Also the og/twitter/JSON-LD share image on all 14 pages (og:image 1672×941, alt describes the van). `crew-panel.jpg` is the inner-page pagehead photo and the process-band photo.
+- **Hero image**: assets/mills-van.jpg (the lettered black van in a shingled-house driveway, 1448×1086, 4:3).
+  Replaced Nov 3 2026 with Logan's "Mills Site home" (source: brand_assets/photos/_source/hero/); the
+  previous 1672×941 shot is in git history. Also the og/twitter/JSON-LD share image on all 14 pages
+  (og:image 1448×1086, set in tools/seo-head.py + make-town-pages.py too) and the `.stats-band` photo.
+  Being 4:3, it is cropped at `object-position:80% 25%` so "Mills" stays clear of the masthead at
+  1920–2560px; re-check wide screens if the image changes. `crew-panel.jpg` is the inner-page pagehead photo and the process-band photo.
 - **Footer photo**: assets/footer-jobsite.jpg (1448×1086), behind the smoked-glass footer on all
   14 pages (`.foot-bg`, a photo slot; the `<img>` carries width/height 1448×1086). Since Nov 3 2026
   it is **"Mills Truck 2"** (Logan's pick): an AI shot of the van side-on in front of a shingled

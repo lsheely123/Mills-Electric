@@ -609,8 +609,8 @@ def build(t, others):
 <meta property="og:description" content="{esc(t['desc'])}">
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{DOMAIN}/assets/mills-van.jpg">
-<meta property="og:image:width" content="1672">
-<meta property="og:image:height" content="941">
+<meta property="og:image:width" content="1448">
+<meta property="og:image:height" content="1086">
 <meta property="og:image:alt" content="The black Mills Electric work van, lettered in gold, parked outside a house in Brockton">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{esc(t['title'])}">
